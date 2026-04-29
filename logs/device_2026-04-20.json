@@ -1,0 +1,10 @@
+[
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776729592571",
+    "amount": 20,
+    "merchantId": 31,
+    "time": "2026-04-20T23:59:53.172Z"
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:35:43.340Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:37:23.928Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:38:25.136Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-SHOE",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:40:03.947Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-HELMET",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:40:32.128Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-HELMET",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:40:47.389Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "TESTING",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:43:31.999Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "TESTING",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T08:44:13.188Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-HELMET",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T12:10:19.858Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-HELMET",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T12:11:31.827Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:13:14.048Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:14:08.710Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:21:08.123Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:23:04.439Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:27:07.478Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:32:00.619Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:33:33.985Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:34:28.754Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:35:55.226Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:36:45.700Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:40:09.081Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-25T13:43:16.301Z"
+  }
+]

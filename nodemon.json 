@@ -1,0 +1,11 @@
+{
+  "watch": ["*.js", "routes", "controllers", "config", "middleware", "models", "utils"],
+  "ext": "js",
+  "ignore": [
+    "*.log",
+    "*.json",
+    "logs/*",
+    "device_id.json",
+    "public/*"
+  ]
+}

@@ -1,0 +1,1157 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:17:30.149Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:18:20.425Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:19:17.501Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:19:40.646Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:25:32.596Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:26:00.653Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:27:05.987Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:27:24.625Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:37:37.250Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:48:17.872Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-16T13:48:48.841Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:53.674Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:53.783Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:54.081Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:54.389Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:54.592Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:54.901Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:55.111Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:55.412Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:55.618Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:55.924Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:56.128Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:56.436Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:56.640Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:56.951Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:57.141Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:57.352Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:57.664Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:57.874Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:58.176Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:58.381Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:58.689Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:58.998Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:59.144Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:04:59.406Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:01.965Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:02.582Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:03.504Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:05.242Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:05.959Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:06.881Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:09.133Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:09.546Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:12.205Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:12.717Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:15.170Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:16.097Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:17.531Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:19.259Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:20.500Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:21.524Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:23.881Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:25.519Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:27.260Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:28.078Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:28.591Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:28.795Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:29.101Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:29.293Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:29.514Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:29.819Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:30.127Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:30.276Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:30.541Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:30.843Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:32.277Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:36.987Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:37.498Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:37.805Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:38.011Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:38.317Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:38.522Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:38.830Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:39.034Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:39.344Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:39.546Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:05:39.856Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:08:17.040Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:11:01.599Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T19:25:33.694Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "test_video.mov"
+    },
+    "time": "2026-04-16T23:52:14.659Z"
+  }
+]

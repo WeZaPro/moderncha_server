@@ -1,0 +1,340 @@
+[
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 900,
+      "min_money": 1,
+      "rates": [
+        15,
+        12,
+        12,
+        12,
+        20,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T06:22:40.936Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 30,
+      "min_money": 1,
+      "rates": [
+        15,
+        12,
+        12,
+        12,
+        20,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T06:23:26.401Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 30,
+      "min_money": 1,
+      "rates": [
+        15,
+        12,
+        12,
+        12,
+        20,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T06:33:45.203Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 30,
+      "min_money": 1,
+      "rates": [
+        15,
+        12,
+        12,
+        12,
+        20,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T06:34:19.506Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 1,
+      "rates": [
+        10,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T07:48:02.806Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        10,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T07:53:07.992Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        10,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T07:55:19.035Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        10,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T08:00:40.367Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T08:01:29.514Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T08:05:57.915Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 25,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T08:07:24.431Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775724601526",
+    "amount": 35,
+    "merchantId": 14,
+    "time": "2026-04-09T08:50:02.326Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T09:16:30.760Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T09:31:18.475Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T14:55:49.222Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 20,
+      "min_money": 30,
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ]
+    },
+    "time": "2026-04-09T14:56:41.129Z"
+  }
+]

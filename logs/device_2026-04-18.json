@@ -1,0 +1,83 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-18T14:00:19.749Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-18T14:10:28.868Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "download-video-ack",
+      "ok": true,
+      "filename": "5.mp4"
+    },
+    "time": "2026-04-18T14:29:59.792Z"
+  }
+]

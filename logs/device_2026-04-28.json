@@ -1,0 +1,37 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 15,
+      "min_money": 30,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-28T13:26:10.053Z"
+  }
+]

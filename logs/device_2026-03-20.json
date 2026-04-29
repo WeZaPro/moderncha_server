@@ -1,0 +1,47 @@
+[
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 20,
+    "time": "2026-03-20T11:05:07.985Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 10,
+    "time": "2026-03-20T11:05:28.993Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 20,
+    "time": "2026-03-20T11:11:04.306Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 10,
+    "time": "2026-03-20T11:16:38.433Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 10,
+    "time": "2026-03-20T11:17:48.824Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "set-timer",
+    "value": 20,
+    "time": "2026-03-20T11:27:28.531Z"
+  },
+  {
+    "deviceId": "esp32-84FA77D4DB1C",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-84FA77D4DB1C",
+      "timer": 20
+    },
+    "time": "2026-03-20T11:27:29.137Z"
+  }
+]

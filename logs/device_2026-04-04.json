@@ -1,0 +1,558 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-timer",
+      "timer": 25
+    },
+    "time": "2026-04-04T11:29:09.341Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "set-timer",
+    "value": 35,
+    "time": "2026-04-04T11:32:44.852Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-1CDBD477FA84",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775302559336",
+    "amount": 30,
+    "time": "2026-04-04T11:36:00.078Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T11:37:39.379Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:39.389Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "result": "SUCCESS",
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "device_id": "esp32-1CDBD477FA84"
+      }
+    },
+    "time": "2026-04-04T11:37:40.636Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:40.647Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "2f7fad1c4739ef25a03a20d87703980cd8e6dad4d3e7e45490e8900b5c40fe78f988af8562578f313fc4f6ebe35778203cb6eeccc83fce3a82f09ca53ee7ee2e",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.177889+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "C7CIZsU7B7u6F0hEPU5ccLBBzqIVBPHz",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "result": "SUCCESS",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336"
+      }
+    },
+    "time": "2026-04-04T11:37:41.255Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:41.267Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "result": "SUCCESS",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336"
+      }
+    },
+    "time": "2026-04-04T11:37:42.831Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:42.841Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "2f7fad1c4739ef25a03a20d87703980cd8e6dad4d3e7e45490e8900b5c40fe78f988af8562578f313fc4f6ebe35778203cb6eeccc83fce3a82f09ca53ee7ee2e",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.177889+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "nonce_str": "C7CIZsU7B7u6F0hEPU5ccLBBzqIVBPHz",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "result": "SUCCESS",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "device_id": "esp32-1CDBD477FA84"
+      }
+    },
+    "time": "2026-04-04T11:37:43.439Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:43.450Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "result": "SUCCESS",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "device_id": "esp32-1CDBD477FA84"
+      }
+    },
+    "time": "2026-04-04T11:37:45.032Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:45.044Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "2f7fad1c4739ef25a03a20d87703980cd8e6dad4d3e7e45490e8900b5c40fe78f988af8562578f313fc4f6ebe35778203cb6eeccc83fce3a82f09ca53ee7ee2e",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.177889+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "C7CIZsU7B7u6F0hEPU5ccLBBzqIVBPHz",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T11:37:45.664Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:45.674Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T11:37:55.277Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:37:55.287Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "result": "SUCCESS",
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "device_id": "esp32-1CDBD477FA84"
+      }
+    },
+    "time": "2026-04-04T11:38:25.586Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:38:25.596Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "1c35969e3062a51fbe7ede0b903489f09b9a7c1c19e6fdf2e242cd2cd60aeaa7eb4c7024ca41bc27d9f6ec5e9f11c93719795a712045e4e25d66fe2f17bf4ab1",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.074871+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "Gf7eOVCCDo5pJ44R1Egz8gOF5DEuVtCw",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "result": "SUCCESS",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336"
+      }
+    },
+    "time": "2026-04-04T11:39:26.192Z"
+  },
+  {
+    "action": "ERROR notify",
+    "error": "",
+    "time": "2026-04-04T11:39:26.203Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-1CDBD477FA84",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775302863659",
+    "amount": 31,
+    "time": "2026-04-04T11:41:04.317Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "4b0db10a20abf252a3c4874a1bf66641ea36e3c5b11c81c70e4f1d15e3c250dedf32789d98e13657546af26d6899abfa0ea51fc027b3e45b51fb57320f59edc4",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:41:48.014783+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404194104254949",
+        "nonce_str": "mebhMO2BhrFZa1Jswj0zwwR6zR8jhNYw",
+        "time_end": "2026-04-04 18:41:44",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302863659",
+        "total_fee": 3100,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302863659",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3100,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T11:41:48.437Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775302863659",
+    "time": "2026-04-04T11:41:48.463Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "2f7fad1c4739ef25a03a20d87703980cd8e6dad4d3e7e45490e8900b5c40fe78f988af8562578f313fc4f6ebe35778203cb6eeccc83fce3a82f09ca53ee7ee2e",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T19:37:39.177889+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404193600845308",
+        "nonce_str": "C7CIZsU7B7u6F0hEPU5ccLBBzqIVBPHz",
+        "time_end": "2026-04-04 18:37:37",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775302559336",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T11:49:26.805Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775302559336",
+    "time": "2026-04-04T11:49:26.821Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-1CDBD477FA84",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775306560211",
+    "amount": 30,
+    "merchantId": 7,
+    "time": "2026-04-04T12:42:40.930Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "9710b0f4f73dbe34c279cafb66d6829a81b3530a424adbc1c9a77bf5fc86630b78a907607ebb1a3a078869235aadb09d83fc6e4b0ba4f496eac9c52f1467d359",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-04T20:43:53.644954+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260404204240851567",
+        "nonce_str": "xNT0VEyHqCZrwGaQ1TfbG0pBVGN32lZQ",
+        "time_end": "2026-04-04 19:43:49",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-1CDBD477FA84_1775306560211",
+        "total_fee": 3000,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-1CDBD477FA84_1775306560211",
+        "device_id": "esp32-1CDBD477FA84",
+        "cash_fee": 3000,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-04T12:43:54.222Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775306560211",
+    "time": "2026-04-04T12:43:54.244Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-1CDBD477FA84",
+    "orderId": "ORDER_esp32-1CDBD477FA84_1775307918985",
+    "amount": 32,
+    "merchantId": 7,
+    "time": "2026-04-04T13:05:19.651Z"
+  }
+]

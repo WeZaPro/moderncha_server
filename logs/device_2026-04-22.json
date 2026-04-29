@@ -1,0 +1,347 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 25,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-22T07:46:32.836Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 20,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-22T07:47:21.884Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-1CDBD477FA84",
+      "cmd": "set-db-config",
+      "ok": true,
+      "timer": 35,
+      "min_money": 25,
+      "HMI": "HDMI",
+      "machine_system": "CATCARWASH",
+      "current_state": "IDLE",
+      "rates": [
+        11,
+        10,
+        10,
+        10,
+        15,
+        15,
+        15,
+        10
+      ],
+      "fnOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "time": "2026-04-22T12:24:19.994Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776896256302",
+    "amount": 5,
+    "merchantId": 31,
+    "time": "2026-04-22T22:17:37.003Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "91def4ecc712479a164225a697e8a630ffdc8eeff37b4221ec2110537e3dfd57a3b00eeb7b5fba51b6b05f8436fe6651db77decd4c608eed5d355c305d3a1e4f",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-23T06:18:00.707430+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260423061736367768",
+        "nonce_str": "B4YBy7413pI5sjS91HGznCEmCYEAOyT5",
+        "time_end": "2026-04-23 05:17:59",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-E04775D4DB1C_1776896256302",
+        "total_fee": 500,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-E04775D4DB1C_1776896256302",
+        "device_id": "esp32-E04775D4DB1C",
+        "cash_fee": 500,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-22T22:18:01.032Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776896256302",
+    "time": "2026-04-22T22:18:01.039Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776897027549",
+    "amount": 5,
+    "merchantId": 31,
+    "time": "2026-04-22T22:30:28.117Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "628b9458b20a931f841a2a225a9ef7d6af1fc4cc812253912a3b3ba62b7b72626c746968417315d597714f2c3c9ddabe55195802d09763359a7252f3c5c2929a",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-23T06:30:47.955181+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260423063027642802",
+        "nonce_str": "Zblft97lMkKiVRraFDjJvY3nx5OE3NMC",
+        "time_end": "2026-04-23 05:30:43",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-E04775D4DB1C_1776897027549",
+        "total_fee": 500,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-E04775D4DB1C_1776897027549",
+        "device_id": "esp32-E04775D4DB1C",
+        "cash_fee": 500,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-22T22:30:48.275Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776897027549",
+    "time": "2026-04-22T22:30:48.283Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776900418898",
+    "amount": 5,
+    "merchantId": 31,
+    "time": "2026-04-22T23:26:59.458Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "a2411247dd9af86fcca2cdf85942da4099e4278f056a1f67e79ddedd55da6eede7842ac9611851d44ecd5aeadacf2d060da2439bf2e3c1ed295c14f1d059fd66",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-23T07:27:15.302064+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260423072659297794",
+        "nonce_str": "ioUbCms5IZPyZz1xIbhDFFlGP3wW3EM5",
+        "time_end": "2026-04-23 06:27:13",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-E04775D4DB1C_1776900418898",
+        "total_fee": 500,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-E04775D4DB1C_1776900418898",
+        "device_id": "esp32-E04775D4DB1C",
+        "cash_fee": 500,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-22T23:27:15.551Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776900418898",
+    "time": "2026-04-22T23:27:15.559Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776900677720",
+    "amount": 5,
+    "merchantId": 31,
+    "time": "2026-04-22T23:31:18.372Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "4532d0140a41b8779124c331c508bd0a41f4481b8cb403142934ecba8e32bbacb1ad5a2603db43f1fe43a1d244d94240f5c2c43de905e769e05dde31db6279ec",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-23T07:31:30.022677+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260423073118902917",
+        "nonce_str": "HP6ncPljYmIADp6gHyi7fWLibbO6T2Qm",
+        "time_end": "2026-04-23 06:31:26",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-E04775D4DB1C_1776900677720",
+        "total_fee": 500,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-E04775D4DB1C_1776900677720",
+        "device_id": "esp32-E04775D4DB1C",
+        "cash_fee": 500,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-22T23:31:30.296Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776900677720",
+    "time": "2026-04-22T23:31:30.303Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-E04775D4DB1C",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776901176544",
+    "amount": 5,
+    "merchantId": 31,
+    "time": "2026-04-22T23:39:37.134Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "2441e5dcd0e05c315e2e94d4656aabafca3989c45b836d3a2b2c8c3e0f418fd9018eaafb672c9453e5418c7d6df0eddb37bf16182ff81e6c9c03c6ffed30b86b",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-23T07:39:54.564171+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260423073936988649",
+        "nonce_str": "QqMOq5FLgz7e4OuaZDenm96lk9T0noXe",
+        "time_end": "2026-04-23 06:39:52",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-E04775D4DB1C_1776901176544",
+        "total_fee": 500,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-E04775D4DB1C_1776901176544",
+        "device_id": "esp32-E04775D4DB1C",
+        "cash_fee": 500,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-22T23:39:54.831Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-E04775D4DB1C_1776901176544",
+    "time": "2026-04-22T23:39:54.838Z"
+  }
+]

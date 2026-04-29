@@ -1,0 +1,166 @@
+[
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "set-timer",
+    "value": 35,
+    "time": "2026-04-07T07:23:08.861Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "set-timer",
+    "value": 35,
+    "time": "2026-04-07T07:25:23.928Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-config",
+      "ok": true,
+      "min_money": 30,
+      "deduct_ms": 1000,
+      "rates": [
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4
+      ]
+    },
+    "time": "2026-04-07T07:31:16.696Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "set-timer",
+    "value": 10,
+    "time": "2026-04-07T07:43:53.098Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "cmd_ack",
+    "data": {
+      "deviceId": "esp32-30EDA0BBA6A0",
+      "cmd": "set-config",
+      "ok": true,
+      "min_money": 30,
+      "deduct_ms": 1000,
+      "rates": [
+        1,
+        0,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4
+      ]
+    },
+    "time": "2026-04-07T08:33:10.647Z"
+  },
+  {
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "action": "set-timer",
+    "value": 15,
+    "time": "2026-04-07T08:45:19.637Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775551561613",
+    "amount": 30,
+    "merchantId": 7,
+    "time": "2026-04-07T08:46:02.623Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775552048047",
+    "amount": 31,
+    "merchantId": 7,
+    "time": "2026-04-07T08:54:08.600Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775552322357",
+    "amount": 33,
+    "merchantId": 7,
+    "time": "2026-04-07T08:58:43.064Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775552842446",
+    "amount": 33,
+    "merchantId": 7,
+    "time": "2026-04-07T09:07:23.160Z"
+  },
+  {
+    "action": "create-qr",
+    "merchantId": 7,
+    "device_id": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775553224754",
+    "amount": 30,
+    "time": "2026-04-07T09:13:45.625Z"
+  },
+  {
+    "action": "create-qr",
+    "merchantId": 7,
+    "device_id": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775553280854",
+    "amount": 30,
+    "time": "2026-04-07T09:14:41.517Z"
+  },
+  {
+    "action": "payment-qr-created",
+    "deviceId": "esp32-30EDA0BBA6A0",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775553350564",
+    "amount": 31,
+    "merchantId": 7,
+    "time": "2026-04-07T09:15:51.274Z"
+  },
+  {
+    "action": "NOTIFY RAW",
+    "data": {
+      "code": 0,
+      "status_code": "",
+      "status_msg": "",
+      "sign": "0c822cfab5071c01ce4b0dcf28821b64cb7e02db58e01ea2f04a115c0abac364daeff970289ec37137428baa4b664484ccee3e1b13bd731c24e9f93ba33e93ea",
+      "version": "3.0.0",
+      "msg": "ok",
+      "time_stamp": "2026-04-07T17:16:42.038238+08:00",
+      "data": {
+        "openid": "",
+        "channel_order_no": "",
+        "operator_id": "58823",
+        "cash_fee_type": "THB",
+        "ksher_order_no": "90020260407171551242572",
+        "nonce_str": "ykJ4hdrkRthxBtKHe7TOQBQKDlg6JzWX",
+        "time_end": "2026-04-07 16:16:39",
+        "fee_type": "THB",
+        "attach": "",
+        "rate": "1.000000",
+        "mch_order_no": "ORDER_esp32-30EDA0BBA6A0_1775553350564",
+        "total_fee": 3100,
+        "appid": "mch48816",
+        "order_no": "ORDER_esp32-30EDA0BBA6A0_1775553350564",
+        "device_id": "esp32-30EDA0BBA6A0",
+        "cash_fee": 3100,
+        "operation": "NATIVE-PAY",
+        "channel": "promptpay",
+        "result": "SUCCESS"
+      }
+    },
+    "time": "2026-04-07T09:16:42.269Z"
+  },
+  {
+    "action": "NOTIFY DONE",
+    "status": "SUCCESS",
+    "orderId": "ORDER_esp32-30EDA0BBA6A0_1775553350564",
+    "time": "2026-04-07T09:16:42.291Z"
+  }
+]
