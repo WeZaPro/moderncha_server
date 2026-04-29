@@ -5,7 +5,7 @@ const express = require("express");
 const http = require("http");
 const cors = require("cors");
 const fs = require("fs");
-const path =require("path")
+const path = require("path");
 const bodyParser = require("body-parser");
 
 // ✅ โหลด config ก่อนทุกอย่าง (จะ print mode ออกมา)
@@ -70,7 +70,7 @@ app.use(express.static("public"));
 
 app.use("/uploads", cors(), express.static(path.join(__dirname, "uploads")));
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 9369;
 
 /* ═══ Load data ══════════════════════════════ */
 let deviceStore = loadDeviceFile();
