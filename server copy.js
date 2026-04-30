@@ -1,16 +1,6 @@
 // server.js
 require("dotenv").config();
 
-// ✅ Kill port ที่ค้างอยู่ก่อน start (สำหรับ Plesk / PM2)
-const { execSync } = require("child_process");
-try {
-  const PORT_TO_KILL = process.env.PORT || 9369;
-  execSync(`fuser -k ${PORT_TO_KILL}/tcp`, { stdio: "ignore" });
-  console.log(`🔪 Killed existing process on port ${PORT_TO_KILL}`);
-} catch (e) {
-  // ไม่มี process ค้าง — ปกติ ไม่ต้องทำอะไร
-}
-
 const express = require("express");
 const http = require("http");
 const cors = require("cors");

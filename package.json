@@ -4,6 +4,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon --ext js --ignore '*.log' --ignore '*.json' --ignore 'logs/' server.js",
+    "prestart": "fuser -k 9369/tcp || true",
     "start": "node server.js",
     "build": "npm run build"
   },
