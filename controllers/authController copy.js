@@ -21,46 +21,31 @@ const generateTokens = (user) => {
 };
 
 // LOGIN
-// LOGIN
 exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    if (!email || !password)
-      return res.status(400).json({ message: "email and password required" });
+  const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
 
-    const [rows] = await db.query("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
-
-    if (!rows.length)
-      return res.status(400).json({ message: "User not found" });
-
-    const user = rows[0];
-    const match = await bcrypt.compare(password, user.password);
-
-    if (!match) return res.status(400).json({ message: "Wrong password" });
-
-    const { accessToken, refreshToken } = generateTokens(user);
-
-    await db.query(
-      "INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))",
-      [user.id, refreshToken]
-    );
-
-    // ✅ เพิ่ม name, role, id กลับไปด้วย
-    res.json({
-      accessToken,
-      refreshToken,
-      name: user.name, // ← HTML ใช้ data.name
-      email: user.email,
-      role: user.role,
-      id: user.id,
-    });
-  } catch (e) {
-    console.error("❌ login:", e.message);
-    res.status(500).json({ message: e.message });
+  if (!rows.length) {
+    return res.status(400).json({ message: "User not found" });
   }
+
+  const user = rows[0];
+  const match = await bcrypt.compare(password, user.password);
+
+  if (!match) {
+    return res.status(400).json({ message: "Wrong password" });
+  }
+
+  const { accessToken, refreshToken } = generateTokens(user);
+
+  // save refresh token
+  await db.query(
+    "INSERT INTO refresh_tokens (user_id, token, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))",
+    [user.id, refreshToken]
+  );
+
+  res.json({ accessToken, refreshToken });
 };
 
 // REFRESH TOKEN
@@ -128,17 +113,18 @@ exports.saveLineUserId = async (req, res) => {
     if (!lineAccessToken)
       return res.status(400).json({ message: "lineAccessToken required" });
 
+    // ── verify token กับ LINE API เพื่อดึง userId
     const { data } = await axios.get("https://api.line.me/v2/profile", {
       headers: { Authorization: `Bearer ${lineAccessToken}` },
     });
 
-    const lineUserId = data.userId;
+    const lineUserId = data.userId; // เช่น "U1234567890abcdef..."
 
-    // ✅ save line_user_id + line_status = 1
-    await db.query(
-      "UPDATE users SET line_user_id = ?, line_status = 1 WHERE id = ?",
-      [lineUserId, req.user.id]
-    );
+    // ── save ลง users table
+    await db.query("UPDATE users SET line_user_id = ? WHERE id = ?", [
+      lineUserId,
+      req.user.id,
+    ]);
 
     console.log(`✅ LINE linked: user=${req.user.id} lineUserId=${lineUserId}`);
     res.json({ ok: true, lineUserId });
@@ -154,16 +140,15 @@ exports.saveLineUserId = async (req, res) => {
 // ══════════════════════════════════════════════
 exports.unlinkLine = async (req, res) => {
   try {
-    // ✅ reset line_user_id + line_status = 0
-    await db.query(
-      "UPDATE users SET line_user_id = NULL, line_status = 0 WHERE id = ?",
-      [req.user.id]
-    );
+    await db.query("UPDATE users SET line_user_id = NULL WHERE id = ?", [
+      req.user.id,
+    ]);
     res.json({ ok: true, message: "LINE unlinked" });
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
 };
+
 // ══════════════════════════════════════════════
 //  POST /api/auth/line-test
 //  ทดสอบส่ง LINE notify

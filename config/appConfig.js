@@ -7,8 +7,8 @@ const path = require("path");
 //  "prod"  → MQTT: 127.0.0.1:9359    | KSher: production
 // ════════════════════════════════════════════
 
-const MODE = "prod"; // ← เปลี่ยนแค่บรรทัดนี้
-// const MODE = "test"; // ← เปลี่ยนแค่บรรทัดนี้
+// const MODE = "prod"; // ← เปลี่ยนแค่บรรทัดนี้
+const MODE = "test"; // ← เปลี่ยนแค่บรรทัดนี้
 
 /* ─── MQTT ─────────────────────────────────── */
 const MQTT_CONFIGS = {

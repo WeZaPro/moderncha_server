@@ -4,7 +4,7 @@ const { client, MQTT_PREFIX } = require("./mqtt");
 const { getSdkByDeviceId } = require("../utils/ksherSdkCache");
 const db = require("../models/db");
 const { updateDeviceStatus } = require("../utils/deviceStatus");
-const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify"); // ✅ เพิ่ม
+// const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify"); // ✅ เพิ่ม
 
 // กัน payment request ซ้ำต่อ device (5 วิ)
 const paymentCache = new Map();
@@ -75,10 +75,9 @@ async function handleSaveIncome(deviceId, data, io) {
   console.log(`💾 save-income [${deviceId}] machineSystem=${machineSystem}`);
 
   try {
-    // ✅ เพิ่ม u.line_status ใน query
     const [rows] = await db.query(
       `SELECT dc.merchant_id, dc.branch_id, dc.name AS device_name,
-              u.line_user_id, u.line_status
+              u.line_user_id
        FROM device_configs dc
        LEFT JOIN users u ON u.id = dc.merchant_id
        WHERE dc.device_id = ?`,
@@ -89,11 +88,6 @@ async function handleSaveIncome(deviceId, data, io) {
     const branchId = rows[0]?.branch_id || null;
     const deviceName = rows[0]?.device_name || deviceId;
     const lineUserId = rows[0]?.line_user_id || null;
-    const lineStatus = rows[0]?.line_status || 0; // ✅ default = false
-
-    console.log(
-      `🔍 device: merchant=${merchantId} branch=${branchId} line_status=${lineStatus}`
-    );
 
     // ✅ Guard: ถ้า merchant_id = null → ไม่ save
     if (!merchantId) {
@@ -110,6 +104,7 @@ async function handleSaveIncome(deviceId, data, io) {
       ? new Date(data.dateTime).toISOString().slice(0, 19).replace("T", " ")
       : new Date().toISOString().slice(0, 19).replace("T", " ");
 
+    // ✅ สร้าง orderId ที่ไม่ซ้ำ — ใช้ timestamp + random suffix
     const baseOrderId = data.orderId || `${deviceId}_${Date.now()}`;
     const safeOrderId = `${baseOrderId}_${Math.random()
       .toString(36)
@@ -155,6 +150,7 @@ async function handleSaveIncome(deviceId, data, io) {
            wax, tire, vac, air, foam, water, spray, frag,
            last_money, date_time)
          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        // ✅ ไม่ใช้ ON DUPLICATE KEY — ใช้ safeOrderId แทน
         [
           deviceId,
           merchantId,
@@ -251,13 +247,8 @@ async function handleSaveIncome(deviceId, data, io) {
 
     io.emit("device-income-saved", { deviceId, machineSystem, dateTime });
 
-    // ✅ เช็ค line_status ก่อนส่ง LINE notify
-    if (
-      lineUserId && // มี line_user_id
-      lineStatus === 1 && // line_status = true
-      machineSystem !== "TESTING" && // ไม่ใช่ test mode
-      !data.debugMode // ไม่ใช่ debug mode
-    ) {
+    // ── LINE notify ───────────────────────────────────────
+    if (lineUserId && machineSystem !== "TESTING" && !data.debugMode) {
       pushMessage(lineUserId, [
         buildIncomeMessage({
           deviceName,
@@ -267,14 +258,6 @@ async function handleSaveIncome(deviceId, data, io) {
           createdAt: dateTime,
         }),
       ]);
-      console.log(`📨 LINE notify → ${lineUserId} (${deviceName}) ✅`);
-    } else {
-      // ✅ log บอกเหตุผลที่ไม่ส่ง
-      if (!lineUserId)
-        console.log(`⚠️ LINE skip: no line_user_id [merchant=${merchantId}]`);
-      else if (!lineStatus)
-        console.log(`⚠️ LINE skip: line_status=false [merchant=${merchantId}]`);
-      else if (data.debugMode) console.log(`⚠️ LINE skip: debugMode=true`);
     }
 
     saveLog({
