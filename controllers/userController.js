@@ -160,14 +160,14 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// ── GET ALL USERS (admin only)
+// ── GET ALL USERS
 exports.getAllUsers = async (req, res) => {
   try {
     const { role } = req.query;
 
     let sql = `SELECT id, name, email, role,
                       created_at, expired_at,
-                      line_user_id, line_status   -- ✅ เพิ่ม
+                      line_user_id, line_status
                FROM users WHERE 1=1`;
     const params = [];
 
@@ -184,14 +184,15 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
-// ── GET USER BY ID (admin only)
+
+// ── GET USER BY ID
 exports.getUserById = async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await db.query(
       `SELECT id, name, email, role,
               created_at, expired_at,
-              line_user_id, line_status   -- ✅ เพิ่ม
+              line_user_id, line_status
        FROM users WHERE id = ?`,
       [id]
     );
