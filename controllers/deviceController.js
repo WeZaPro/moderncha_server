@@ -87,7 +87,6 @@ function parseDateTH(str) {
   return null;
 }
 
-// ── แปลง datetime string → MySQL DATETIME ──
 function parseDateTimeStr(str) {
   if (!str) return new Date().toISOString().slice(0, 19).replace("T", " ");
   const d = new Date(str);
@@ -95,7 +94,6 @@ function parseDateTimeStr(str) {
   return str;
 }
 
-// ── ดึง merchant_id + branch_id จาก device_configs ──
 async function getDeviceMeta(deviceId, fallbackMerchant, fallbackBranch) {
   try {
     const [rows] = await db.query(
@@ -134,6 +132,20 @@ function parseDeviceRow(r) {
     sensor: parseCommaOrJson(r.sensor, [false, false]).map(
       (v) => v === "1" || v === true || v === "true"
     ),
+    // ✅ catpaw fields — ส่งกลับเป็น Number เสมอ
+    t_total: Number(r.t_total) || 480,
+    bact_s: Number(r.bact_s) || 0,
+    bact_e: Number(r.bact_e) || 60,
+    ozone_s: Number(r.ozone_s) || 60,
+    ozone_e: Number(r.ozone_e) || 120,
+    perfume_s: Number(r.perfume_s) || 120,
+    perfume_e: Number(r.perfume_e) || 240,
+    dust_s: Number(r.dust_s) || 0,
+    dust_e: Number(r.dust_e) || 480,
+    uv_s: Number(r.uv_s) || 0,
+    uv_e: Number(r.uv_e) || 480,
+    dry_s: Number(r.dry_s) || 240,
+    dry_e: Number(r.dry_e) || 480,
   };
 }
 
@@ -228,6 +240,20 @@ exports.createDeviceConfig = async (req, res) => {
       delay_time,
       water_level,
       sensor,
+      // ✅ catpaw fields
+      t_total,
+      bact_s,
+      bact_e,
+      ozone_s,
+      ozone_e,
+      perfume_s,
+      perfume_e,
+      dust_s,
+      dust_e,
+      uv_s,
+      uv_e,
+      dry_s,
+      dry_e,
     } = req.body;
 
     if (!device_id)
@@ -328,6 +354,20 @@ exports.createDeviceConfig = async (req, res) => {
       delayTimeStr,
       waterLevelStr,
       sensorStr,
+      // ✅ catpaw fields
+      t_total !== undefined ? Number(t_total) : 480,
+      bact_s !== undefined ? Number(bact_s) : 0,
+      bact_e !== undefined ? Number(bact_e) : 60,
+      ozone_s !== undefined ? Number(ozone_s) : 60,
+      ozone_e !== undefined ? Number(ozone_e) : 120,
+      perfume_s !== undefined ? Number(perfume_s) : 120,
+      perfume_e !== undefined ? Number(perfume_e) : 240,
+      dust_s !== undefined ? Number(dust_s) : 0,
+      dust_e !== undefined ? Number(dust_e) : 480,
+      uv_s !== undefined ? Number(uv_s) : 0,
+      uv_e !== undefined ? Number(uv_e) : 480,
+      dry_s !== undefined ? Number(dry_s) : 240,
+      dry_e !== undefined ? Number(dry_e) : 480,
     ];
 
     const sql = `
@@ -343,8 +383,15 @@ exports.createDeviceConfig = async (req, res) => {
         scr_rotate, prices_list, reset_reason, date_time, debug,
         HMI, machine_system, fnOrder,
         lastedUpdate, lastedMaintenance,
-        current_state, delay_time, water_level, sensor
-      ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        current_state, delay_time, water_level, sensor,
+        t_total,
+        bact_s, bact_e, ozone_s, ozone_e,
+        perfume_s, perfume_e, dust_s, dust_e,
+        uv_s, uv_e, dry_s, dry_e
+      ) VALUES (
+        ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+        ?,?,?,?,?,?,?,?,?,?,?,?,?
+      )
     `;
 
     const qCount = (sql.match(/\?/g) || []).length;
@@ -369,135 +416,6 @@ exports.createDeviceConfig = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
-
-// exports.updateDeviceConfig = async (req, res) => {
-//   try {
-//     const { device_id } = req.params;
-//     let checkSql = "SELECT id FROM device_configs WHERE device_id = ?";
-//     let checkParams = [device_id];
-//     if (req.user.role === "merchant") {
-//       checkSql += " AND merchant_id = ?";
-//       checkParams.push(String(req.user.id));
-//     }
-//     const [rows] = await db.query(checkSql, checkParams);
-//     if (!rows.length)
-//       return res.status(404).json({ message: "Device config not found" });
-
-//     if (req.body.fn_time !== undefined)
-//       req.body.fn_time = Array.isArray(req.body.fn_time)
-//         ? JSON.stringify(req.body.fn_time)
-//         : req.body.fn_time;
-//     if (req.body.fn_enable !== undefined)
-//       req.body.fn_enable = Array.isArray(req.body.fn_enable)
-//         ? JSON.stringify(req.body.fn_enable)
-//         : req.body.fn_enable;
-//     if (req.body.pro_mo !== undefined)
-//       req.body.pro_mo = parseFloat(req.body.pro_mo) || 0.0;
-//     if (req.body.fnOrder !== undefined)
-//       req.body.fnOrder = serializeArray(req.body.fnOrder);
-//     if (req.body.delay_time !== undefined)
-//       req.body.delay_time = serializeArray(req.body.delay_time);
-//     if (req.body.water_level !== undefined) {
-//       const arr = Array.isArray(req.body.water_level)
-//         ? req.body.water_level
-//         : String(req.body.water_level).split(",");
-//       req.body.water_level = arr
-//         .map((v) => (v === true || v === "true" || v === "1" ? "1" : "0"))
-//         .join(",");
-//     }
-//     if (req.body.sensor !== undefined) {
-//       const arr = Array.isArray(req.body.sensor)
-//         ? req.body.sensor
-//         : String(req.body.sensor).split(",");
-//       req.body.sensor = arr
-//         .map((v) => (v === true || v === "true" || v === "1" ? "1" : "0"))
-//         .join(",");
-//     }
-//     if (req.body.lastedUpdate !== undefined)
-//       req.body.lastedUpdate = parseDateTH(req.body.lastedUpdate);
-//     if (req.body.lastedMaintenance !== undefined)
-//       req.body.lastedMaintenance = parseDateTH(req.body.lastedMaintenance);
-
-//     const allowed = [
-//       "name",
-//       "lat",
-//       "lon",
-//       "mac",
-//       "chip",
-//       "flash",
-//       "ota_size",
-//       "hw",
-//       "ver",
-//       "update_date",
-//       "ssid",
-//       "wfpwd",
-//       "fn_time",
-//       "fn_enable",
-//       "machine_active",
-//       "multi_mode",
-//       "heartbeat_inv",
-//       "bank_accept",
-//       "coin_accept",
-//       "qr_accept",
-//       "start_prices",
-//       "last_money",
-//       "pro_mo",
-//       "virtual_money",
-//       "start_timeout",
-//       "money_mem_active",
-//       "bill_type",
-//       "scr_rotate",
-//       "prices_list",
-//       "reset_reason",
-//       "date_time",
-//       "debug",
-//       "HMI",
-//       "machine_system",
-//       "fnOrder",
-//       "lastedUpdate",
-//       "lastedMaintenance",
-//       "current_state",
-//       "delay_time",
-//       "water_level",
-//       "sensor",
-//       // ✅ เพิ่ม catpaw fields
-//       "t_total",
-//       "bact_s",
-//       "bact_e",
-//       "ozone_s",
-//       "ozone_e",
-//       "perfume_s",
-//       "perfume_e",
-//       "dust_s",
-//       "dust_e",
-//       "uv_s",
-//       "uv_e",
-//       "dry_s",
-//       "dry_e",
-//     ];
-
-//     const fields = [];
-//     const values = [];
-//     for (const key of allowed) {
-//       if (req.body[key] !== undefined) {
-//         fields.push(`\`${key}\` = ?`);
-//         values.push(req.body[key]);
-//       }
-//     }
-//     if (!fields.length)
-//       return res.status(400).json({ message: "No valid fields to update" });
-
-//     values.push(device_id);
-//     await db.query(
-//       `UPDATE device_configs SET ${fields.join(", ")} WHERE device_id = ?`,
-//       values
-//     );
-//     res.json({ ok: true, device_id, updated: fields.length });
-//   } catch (e) {
-//     console.error("❌ updateDeviceConfig:", e.message);
-//     res.status(500).json({ message: e.message });
-//   }
-// };
 
 exports.updateDeviceConfig = async (req, res) => {
   try {
@@ -526,11 +444,29 @@ exports.updateDeviceConfig = async (req, res) => {
       req.body.fnOrder = serializeArray(req.body.fnOrder);
     if (req.body.delay_time !== undefined)
       req.body.delay_time = serializeArray(req.body.delay_time);
-
     if (req.body.lastedUpdate !== undefined)
       req.body.lastedUpdate = parseDateTH(req.body.lastedUpdate);
     if (req.body.lastedMaintenance !== undefined)
       req.body.lastedMaintenance = parseDateTH(req.body.lastedMaintenance);
+    // ✅ catpaw fields — แปลงเป็น Number
+    const catpawFields = [
+      "t_total",
+      "bact_s",
+      "bact_e",
+      "ozone_s",
+      "ozone_e",
+      "perfume_s",
+      "perfume_e",
+      "dust_s",
+      "dust_e",
+      "uv_s",
+      "uv_e",
+      "dry_s",
+      "dry_e",
+    ];
+    for (const f of catpawFields) {
+      if (req.body[f] !== undefined) req.body[f] = Number(req.body[f]);
+    }
 
     const allowed = [
       "name",
@@ -572,9 +508,7 @@ exports.updateDeviceConfig = async (req, res) => {
       "lastedMaintenance",
       "current_state",
       "delay_time",
-      // "water_level",
-      // "sensor",
-      // ✅ เพิ่ม catpaw fields
+      // ✅ catpaw fields
       "t_total",
       "bact_s",
       "bact_e",
@@ -686,10 +620,6 @@ exports.updateDeviceState = async (req, res) => {
   }
 };
 
-// ══════════════════════════════════════════════
-//  updateRuntimeFromDevice
-//  POST /api/device-configs/runtime (no auth)
-// ══════════════════════════════════════════════
 exports.updateRuntimeFromDevice = async (req, res) => {
   try {
     const body = req.body;
@@ -773,7 +703,7 @@ exports.updateRuntimeFromDevice = async (req, res) => {
 };
 
 // ══════════════════════════════════════════════
-//  buildMqttPayload
+//  buildMqttPayload — ✅ เพิ่ม catpaw fields
 // ══════════════════════════════════════════════
 function buildMqttPayload(cfg) {
   let fnTimeArr = [];
@@ -806,6 +736,7 @@ function buildMqttPayload(cfg) {
   const sensorArr = parseCommaOrJson(cfg.sensor, ["0", "0"]).map(
     (v) => v === "1" || v === true || v === "true"
   );
+
   return {
     cmd: "set-db-config",
     branch_id: cfg.branch_id || "",
@@ -838,6 +769,20 @@ function buildMqttPayload(cfg) {
     delay_time: delayTimeArr,
     water_level: waterLevelArr,
     sensor: sensorArr,
+    // ✅ Catpaw Timeline fields
+    t_total: Number(cfg.t_total) || 480,
+    bact_s: Number(cfg.bact_s) || 0,
+    bact_e: Number(cfg.bact_e) || 60,
+    ozone_s: Number(cfg.ozone_s) || 60,
+    ozone_e: Number(cfg.ozone_e) || 120,
+    perfume_s: Number(cfg.perfume_s) || 120,
+    perfume_e: Number(cfg.perfume_e) || 240,
+    dust_s: Number(cfg.dust_s) || 0,
+    dust_e: Number(cfg.dust_e) || 480,
+    uv_s: Number(cfg.uv_s) || 0,
+    uv_e: Number(cfg.uv_e) || 480,
+    dry_s: Number(cfg.dry_s) || 240,
+    dry_e: Number(cfg.dry_e) || 480,
   };
 }
 
@@ -896,7 +841,7 @@ exports.sendConfigToGroup = async (req, res) => {
     const results = [];
     for (const cfg of rows) {
       try {
-        const payload = buildMqttPayload(cfg);
+        const payload = buildMqttPayload(cfg); // ✅ catpaw fields ถูกส่งอัตโนมัติ
         const topic = `${MQTT_PREFIX}/${cfg.device_id}/cmd`;
         client.publish(topic, JSON.stringify(payload));
         results.push({
@@ -928,6 +873,7 @@ exports.sendConfigToGroup = async (req, res) => {
 
 // ══════════════════════════════════════════════
 //  syncConfigFromDevice — no auth
+//  ✅ เพิ่ม catpaw fields ใน UPDATE และ INSERT
 // ══════════════════════════════════════════════
 exports.syncConfigFromDevice = async (req, res) => {
   try {
@@ -963,6 +909,21 @@ exports.syncConfigFromDevice = async (req, res) => {
       ? body.sensor.map((v) => (v ? "1" : "0")).join(",")
       : "0,0";
 
+    // ✅ catpaw values
+    const t_total = Number(body.t_total) || 480;
+    const bact_s = Number(body.bact_s) || 0;
+    const bact_e = Number(body.bact_e) || 60;
+    const ozone_s = Number(body.ozone_s) || 60;
+    const ozone_e = Number(body.ozone_e) || 120;
+    const perfume_s = Number(body.perfume_s) || 120;
+    const perfume_e = Number(body.perfume_e) || 240;
+    const dust_s = Number(body.dust_s) || 0;
+    const dust_e = Number(body.dust_e) || 480;
+    const uv_s = Number(body.uv_s) || 0;
+    const uv_e = Number(body.uv_e) || 480;
+    const dry_s = Number(body.dry_s) || 240;
+    const dry_e = Number(body.dry_e) || 480;
+
     const [existing] = await db.query(
       "SELECT id FROM device_configs WHERE device_id = ?",
       [device_id]
@@ -978,6 +939,9 @@ exports.syncConfigFromDevice = async (req, res) => {
           money_mem_active=?, debug=?, pro_mo=?,
           HMI=?, machine_system=?, current_state=?,
           fn_time=?, fn_enable=?, fnOrder=?, delay_time=?, water_level=?, sensor=?,
+          t_total=?, bact_s=?, bact_e=?, ozone_s=?, ozone_e=?,
+          perfume_s=?, perfume_e=?, dust_s=?, dust_e=?,
+          uv_s=?, uv_e=?, dry_s=?, dry_e=?,
           lastedUpdate=NOW()
         WHERE device_id=?`,
         [
@@ -1008,6 +972,20 @@ exports.syncConfigFromDevice = async (req, res) => {
           delayStr,
           wlStr,
           snStr,
+          // ✅ catpaw
+          t_total,
+          bact_s,
+          bact_e,
+          ozone_s,
+          ozone_e,
+          perfume_s,
+          perfume_e,
+          dust_s,
+          dust_e,
+          uv_s,
+          uv_e,
+          dry_s,
+          dry_e,
           device_id,
         ]
       );
@@ -1020,8 +998,12 @@ exports.syncConfigFromDevice = async (req, res) => {
           heartbeat_inv, start_prices, start_timeout,
           machine_active, multi_mode, bank_accept, coin_accept, qr_accept,
           money_mem_active, debug, pro_mo, HMI, machine_system, current_state,
-          fn_time, fn_enable, fnOrder, delay_time, water_level, sensor, lastedUpdate
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())`,
+          fn_time, fn_enable, fnOrder, delay_time, water_level, sensor,
+          t_total, bact_s, bact_e, ozone_s, ozone_e,
+          perfume_s, perfume_e, dust_s, dust_e,
+          uv_s, uv_e, dry_s, dry_e,
+          lastedUpdate
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())`,
         [
           device_id,
           merchantId,
@@ -1051,6 +1033,20 @@ exports.syncConfigFromDevice = async (req, res) => {
           delayStr,
           wlStr,
           snStr,
+          // ✅ catpaw
+          t_total,
+          bact_s,
+          bact_e,
+          ozone_s,
+          ozone_e,
+          perfume_s,
+          perfume_e,
+          dust_s,
+          dust_e,
+          uv_s,
+          uv_e,
+          dry_s,
+          dry_e,
         ]
       );
     }
