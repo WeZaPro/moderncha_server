@@ -1,0 +1,76 @@
+[
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:42:13.809Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:42:40.442Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:44:10.249Z"
+  },
+  {
+    "deviceId": "esp32-E04775D4DB1C",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:45:31.802Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-SHOE",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:45:54.237Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-SHOE",
+      "sumIncome": 50
+    },
+    "time": "2026-04-30T00:46:13.079Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATCARWASH",
+      "sumIncome": 50,
+      "orderId": "TEST_1777511093820_3b7k"
+    },
+    "time": "2026-04-30T01:04:54.114Z"
+  },
+  {
+    "deviceId": "esp32-1CDBD477FA84",
+    "action": "save-income",
+    "data": {
+      "machineSystem": "CATPAW-HELMET",
+      "sumIncome": 50,
+      "orderId": "TEST_1777511315969_djwd"
+    },
+    "time": "2026-04-30T01:08:36.169Z"
+  }
+]

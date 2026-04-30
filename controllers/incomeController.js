@@ -36,6 +36,8 @@ exports.recordIncome = async (req, res) => {
   try {
     const { device_id, price, method, datetime, mode } = req.body;
 
+    console.log("req.body ", req.body);
+
     if (!device_id)
       return res.status(400).json({ message: "device_id required" });
     if (!price || isNaN(Number(price)))
@@ -93,7 +95,7 @@ exports.recordIncome = async (req, res) => {
     );
 
     console.log(
-      `✅ Income recorded: id=${result.insertId} device=${device_id} method=${method} price=${price}`
+      `✅ Income recorded: id=${result.insertId}  merchant_id=${merchant_id} device=${device_id} method=${method} price=${price}`
     );
 
     // ── ส่ง LINE notify (non-blocking)

@@ -11,7 +11,7 @@ mosquitto_pub -h broker.hivemq.com -p 1883 \
 "orderId":"TEST_MAC_004",
 "cashIncome":0,
 "coinIncome":0,
-"qrIncome":50,
+"qrIncome":555,
 "sumIncome":50,
 "lastMoney":50
 }'
@@ -21,11 +21,11 @@ mosquitto_pub -h broker.hivemq.com -p 1883 \
 -q 1 \
 -m '{
 "cmd":"save-income",
-"deviceId":"esp32-1CDBD477FA843",
+"deviceId":"esp32-E04775D4DB1C",
 "machineSystem":"CATPAW-SHOE",
 "orderId":"TEST_MAC_001",
 "cashIncome":0,
-"coinIncome":0,
+"coinIncome":999,
 "qrIncome":50,
 "sumIncome":50,
 "lastMoney":50

@@ -7,7 +7,8 @@ const path = require("path");
 //  "prod"  → MQTT: 127.0.0.1:9359    | KSher: production
 // ════════════════════════════════════════════
 
-const MODE = "port"; // ← เปลี่ยนแค่บรรทัดนี้
+const MODE = "prod"; // ← เปลี่ยนแค่บรรทัดนี้
+// const MODE = "test"; // ← เปลี่ยนแค่บรรทัดนี้
 
 /* ─── MQTT ─────────────────────────────────── */
 const MQTT_CONFIGS = {
@@ -26,32 +27,33 @@ const MQTT_CONFIGS = {
 };
 
 /* ─── KSher ─────────────────────────────────── */
-const KSHER_CONFIGS = {
-  test: {
-    appid: process.env.KSHER_APPID_TEST || "mch48816",
-    privatekey:
-      process.env.KSHER_KEY_TEST ||
-      path.resolve(__dirname, "../Mch48816_PrivateKey.pem"), // ✅ absolute path
-    notify_url:
-      process.env.NOTIFY_URL_TEST ||
-      "https://accent-inserted-improved-korean.trycloudflare.com/notify",
-  },
-  prod: {
-    appid: process.env.KSHER_APPID_PROD || "mch48816",
-    privatekey:
-      process.env.KSHER_KEY_PROD ||
-      path.resolve(__dirname, "../Mch48816_PrivateKey.pem"),
-    notify_url:
-      process.env.NOTIFY_URL_PROD ||
-      "https://accent-inserted-improved-korean.trycloudflare.com/notify",
-  },
-};
+// const KSHER_CONFIGS = {
+//   test: {
+//     appid: process.env.KSHER_APPID_TEST || "mch48816",
+//     privatekey:
+//       process.env.KSHER_KEY_TEST ||
+//       path.resolve(__dirname, "../Mch48816_PrivateKey.pem"), // ✅ absolute path
+//     notify_url:
+//       process.env.NOTIFY_URL_TEST ||
+//       "https://accent-inserted-improved-korean.trycloudflare.com/notify",
+//   },
+//   prod: {
+//     appid: process.env.KSHER_APPID_PROD || "mch48816",
+//     privatekey:
+//       process.env.KSHER_KEY_PROD ||
+//       path.resolve(__dirname, "../Mch48816_PrivateKey.pem"),
+//     notify_url:
+//       process.env.NOTIFY_URL_PROD ||
+//       "https://accent-inserted-improved-korean.trycloudflare.com/notify",
+//   },
+// };
 
 const mqttConfig = MQTT_CONFIGS[MODE];
-const ksherConfig = KSHER_CONFIGS[MODE];
+// const ksherConfig = KSHER_CONFIGS[MODE];
 
 console.log(`🌐 APP MODE : ${MODE.toUpperCase()}`);
 console.log(`🔌 MQTT URL : ${mqttConfig.url}`);
-console.log(`💳 KSher    : ${ksherConfig.notify_url}`);
+// console.log(`💳 KSher    : ${ksherConfig.notify_url}`);
 
-module.exports = { MODE, mqttConfig, ksherConfig };
+// module.exports = { MODE, mqttConfig, ksherConfig };
+module.exports = { MODE, mqttConfig };

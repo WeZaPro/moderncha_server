@@ -4,7 +4,7 @@ const { client, MQTT_PREFIX } = require("./mqtt");
 const { getSdkByDeviceId } = require("../utils/ksherSdkCache");
 const db = require("../models/db");
 const { updateDeviceStatus } = require("../utils/deviceStatus");
-const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify"); // ✅ เพิ่ม
+// const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify"); // ✅ เพิ่ม
 
 // กัน payment request ซ้ำต่อ device (5 วิ)
 const paymentCache = new Map();
@@ -68,13 +68,13 @@ async function createPaymentQR(deviceId, amount) {
 // ══════════════════════════════════════════════
 //  handleSaveIncome — บันทึก income ลง DB + ส่ง LINE
 // ══════════════════════════════════════════════
+
 async function handleSaveIncome(deviceId, data, io) {
   const machineSystem =
     data.machineSystem || data.machine_system || "CATCARWASH";
   console.log(`💾 save-income [${deviceId}] machineSystem=${machineSystem}`);
 
   try {
-    // ── ดึง merchant_id + branch_id + line_user_id พร้อมกัน
     const [rows] = await db.query(
       `SELECT dc.merchant_id, dc.branch_id, dc.name AS device_name,
               u.line_user_id
@@ -84,20 +84,32 @@ async function handleSaveIncome(deviceId, data, io) {
       [deviceId]
     );
 
-    const merchantId = rows[0]?.merchant_id || data.merchant_id || null;
-    const branchId = rows[0]?.branch_id || data.branch_id || null;
+    const merchantId = rows[0]?.merchant_id || null;
+    const branchId = rows[0]?.branch_id || null;
     const deviceName = rows[0]?.device_name || deviceId;
     const lineUserId = rows[0]?.line_user_id || null;
 
-    console.log(
-      `🔍 device: merchant=${merchantId} branch=${branchId} line=${lineUserId}`
-    );
+    // ✅ Guard: ถ้า merchant_id = null → ไม่ save
+    if (!merchantId) {
+      console.warn(`⚠️ save-income SKIP: merchant_id=null [${deviceId}]`);
+      sendMQTTCmd(deviceId, {
+        cmd: "save-income-ack",
+        ok: false,
+        error: "merchant_id not found — device not assigned to merchant",
+      });
+      return;
+    }
 
     const dateTime = data.dateTime
       ? new Date(data.dateTime).toISOString().slice(0, 19).replace("T", " ")
       : new Date().toISOString().slice(0, 19).replace("T", " ");
 
-    // ── ตรวจ method จากยอดที่มีค่า
+    // ✅ สร้าง orderId ที่ไม่ซ้ำ — ใช้ timestamp + random suffix
+    const baseOrderId = data.orderId || `${deviceId}_${Date.now()}`;
+    const safeOrderId = `${baseOrderId}_${Math.random()
+      .toString(36)
+      .slice(2, 6)}`;
+
     const method =
       (data.qrIncome ?? 0) > 0
         ? "qr"
@@ -107,7 +119,7 @@ async function handleSaveIncome(deviceId, data, io) {
         ? "coin"
         : "cash";
 
-    // ── Testing / debug mode ──
+    // ── Testing / debug mode ──────────────────────────────
     if (machineSystem === "TESTING" || data.debugMode) {
       await db.query(
         `INSERT INTO income_testing
@@ -127,9 +139,9 @@ async function handleSaveIncome(deviceId, data, io) {
           data.debugMode ? 1 : 0,
         ]
       );
-      console.log(`✅ Testing income saved: ${deviceId}`);
+      console.log(`✅ income_testing saved [${deviceId}]`);
 
-      // ── CATCARWASH ──
+      // ── CATCARWASH ────────────────────────────────────────
     } else if (machineSystem === "CATCARWASH") {
       await db.query(
         `INSERT INTO income_catcarwash
@@ -137,14 +149,14 @@ async function handleSaveIncome(deviceId, data, io) {
            cash_income, coin_income, qr_income, sum_income,
            wax, tire, vac, air, foam, water, spray, frag,
            last_money, date_time)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-         ON DUPLICATE KEY UPDATE sum_income = VALUES(sum_income)`,
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        // ✅ ไม่ใช้ ON DUPLICATE KEY — ใช้ safeOrderId แทน
         [
           deviceId,
           merchantId,
           branchId,
           machineSystem,
-          data.orderId || `${deviceId}_${Date.now()}`,
+          safeOrderId,
           data.cashIncome ?? 0,
           data.coinIncome ?? 0,
           data.qrIncome ?? 0,
@@ -161,22 +173,23 @@ async function handleSaveIncome(deviceId, data, io) {
           dateTime,
         ]
       );
-      console.log(`✅ CATCARWASH income saved: ${deviceId}`);
+      console.log(
+        `✅ income_catcarwash saved [${deviceId}] orderId=${safeOrderId}`
+      );
 
-      // ── CATPAW-SHOE ──
+      // ── CATPAW-SHOE ───────────────────────────────────────
     } else if (machineSystem === "CATPAW-SHOE") {
       await db.query(
         `INSERT INTO income_catpaw_shoe
           (device_id, merchant_id, branch_id, machine_system, order_id,
            cash_income, coin_income, qr_income, sum_income, last_money, date_time)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?)
-         ON DUPLICATE KEY UPDATE sum_income = VALUES(sum_income)`,
+         VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
         [
           deviceId,
           merchantId,
           branchId,
           machineSystem,
-          data.orderId || `${deviceId}_${Date.now()}`,
+          safeOrderId,
           data.cashIncome ?? 0,
           data.coinIncome ?? 0,
           data.qrIncome ?? 0,
@@ -185,22 +198,23 @@ async function handleSaveIncome(deviceId, data, io) {
           dateTime,
         ]
       );
-      console.log(`✅ CATPAW-SHOE income saved: ${deviceId}`);
+      console.log(
+        `✅ income_catpaw_shoe saved [${deviceId}] orderId=${safeOrderId}`
+      );
 
-      // ── CATPAW-HELMET ──
+      // ── CATPAW-HELMET ─────────────────────────────────────
     } else if (machineSystem === "CATPAW-HELMET") {
       await db.query(
         `INSERT INTO income_catpaw_helmet
           (device_id, merchant_id, branch_id, machine_system, order_id,
            cash_income, coin_income, qr_income, sum_income, last_money, date_time)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?)
-         ON DUPLICATE KEY UPDATE sum_income = VALUES(sum_income)`,
+         VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
         [
           deviceId,
           merchantId,
           branchId,
           machineSystem,
-          data.orderId || `${deviceId}_${Date.now()}`,
+          safeOrderId,
           data.cashIncome ?? 0,
           data.coinIncome ?? 0,
           data.qrIncome ?? 0,
@@ -209,7 +223,9 @@ async function handleSaveIncome(deviceId, data, io) {
           dateTime,
         ]
       );
-      console.log(`✅ CATPAW-HELMET income saved: ${deviceId}`);
+      console.log(
+        `✅ income_catpaw_helmet saved [${deviceId}] orderId=${safeOrderId}`
+      );
     } else {
       console.warn(`⚠️ Unknown machineSystem: ${machineSystem} [${deviceId}]`);
       sendMQTTCmd(deviceId, {
@@ -220,39 +236,34 @@ async function handleSaveIncome(deviceId, data, io) {
       return;
     }
 
-    // ── ACK กลับ ESP32
+    // ── ACK กลับ ESP32 ────────────────────────────────────
     sendMQTTCmd(deviceId, {
       cmd: "save-income-ack",
       ok: true,
       machineSystem,
+      orderId: safeOrderId,
       dateTime,
     });
 
-    // ── emit realtime ให้ frontend
     io.emit("device-income-saved", { deviceId, machineSystem, dateTime });
 
-    // ── ส่ง LINE notify (non-blocking — ไม่กระทบ flow หลัก)
-    if (lineUserId && machineSystem !== "TESTING" && !data.debugMode) {
-      pushMessage(lineUserId, [
-        buildIncomeMessage({
-          deviceName,
-          method,
-          price: data.sumIncome ?? 0,
-          branchId,
-          createdAt: dateTime,
-        }),
-      ]);
-      console.log(`📨 LINE notify → ${lineUserId} (${deviceName})`);
-    } else if (!lineUserId) {
-      console.log(
-        `⚠️ LINE notify skipped: no line_user_id for merchant=${merchantId}`
-      );
-    }
+    // // ── LINE notify ───────────────────────────────────────
+    // if (lineUserId && machineSystem !== "TESTING" && !data.debugMode) {
+    //   pushMessage(lineUserId, [
+    //     buildIncomeMessage({
+    //       deviceName,
+    //       method,
+    //       price: data.sumIncome ?? 0,
+    //       branchId,
+    //       createdAt: dateTime,
+    //     }),
+    //   ]);
+    // }
 
     saveLog({
       deviceId,
       action: "save-income",
-      data: { machineSystem, sumIncome: data.sumIncome },
+      data: { machineSystem, sumIncome: data.sumIncome, orderId: safeOrderId },
       time: new Date().toISOString(),
     });
   } catch (e) {
