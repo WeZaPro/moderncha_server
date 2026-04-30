@@ -202,29 +202,87 @@ exports.getIncome = async (req, res) => {
 // ══════════════════════════════════════════════
 exports.getIncomeTesting = async (req, res) => {
   try {
-    const { limit = 100, start_date, end_date } = req.query;
+    const {
+      limit = 50,
+      page = 1,
+      start_date,
+      end_date,
+      merchant_id: qMerchantId,
+    } = req.query;
+    const offset = (Number(page) - 1) * Number(limit);
 
-    let sql = `SELECT * FROM income_testing`;
-    const params = [];
     const where = [];
+    const params = [];
 
-    if (start_date && end_date) {
-      where.push("date_time BETWEEN ? AND ?");
-      params.push(start_date, end_date);
+    // role-based filter (เหมือน carwash/shoe/helmet)
+    if (req.user.role === "admin") {
+      if (qMerchantId) {
+        where.push("merchant_id = ?");
+        params.push(qMerchantId);
+      }
+    } else if (req.user.role === "merchant") {
+      where.push("merchant_id = ?");
+      params.push(req.user.id);
     }
 
-    if (where.length > 0) sql += " WHERE " + where.join(" AND ");
+    if (start_date) {
+      where.push("date_time >= ?");
+      params.push(start_date);
+    }
+    if (end_date) {
+      where.push("date_time <= ?");
+      params.push(end_date + " 23:59:59");
+    }
 
-    sql += " ORDER BY date_time DESC LIMIT ?";
-    params.push(Number(limit));
+    const whereStr = where.length ? " WHERE " + where.join(" AND ") : "";
 
-    const [rows] = await db.query(sql, params);
-    res.json({ ok: true, total: rows.length, data: rows });
+    const [[{ total }]] = await db.query(
+      `SELECT COUNT(*) as total FROM income_testing${whereStr}`,
+      params
+    );
+    const [rows] = await db.query(
+      `SELECT * FROM income_testing${whereStr} ORDER BY date_time DESC LIMIT ? OFFSET ?`,
+      [...params, Number(limit), offset]
+    );
+
+    res.json({
+      ok: true,
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      data: rows,
+    });
   } catch (e) {
     console.error("❌ getIncomeTesting:", e.message);
     res.status(500).json({ ok: false, message: e.message });
   }
 };
+
+// exports.getIncomeTesting = async (req, res) => {
+//   try {
+//     const { limit = 100, start_date, end_date } = req.query;
+
+//     let sql = `SELECT * FROM income_testing`;
+//     const params = [];
+//     const where = [];
+
+//     if (start_date && end_date) {
+//       where.push("date_time BETWEEN ? AND ?");
+//       params.push(start_date, end_date);
+//     }
+
+//     if (where.length > 0) sql += " WHERE " + where.join(" AND ");
+
+//     sql += " ORDER BY date_time DESC LIMIT ?";
+//     params.push(Number(limit));
+
+//     const [rows] = await db.query(sql, params);
+//     res.json({ ok: true, total: rows.length, data: rows });
+//   } catch (e) {
+//     console.error("❌ getIncomeTesting:", e.message);
+//     res.status(500).json({ ok: false, message: e.message });
+//   }
+// };
 // ══════════════════════════════════════════════
 //  INCOME: CATCARWASH
 // ══════════════════════════════════════════════

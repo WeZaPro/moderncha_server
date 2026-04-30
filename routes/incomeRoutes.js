@@ -38,7 +38,12 @@ router.get(
 );
 
 // ── GET /api/income/testing ─────────────────
-router.get("/testmode", auth, role("admin"), incomeController.getIncomeTesting);
+router.get(
+  "/testmode",
+  auth,
+  role("admin", "merchant"),
+  incomeController.getIncomeTesting
+);
 router.get(
   "/machine",
   auth,
