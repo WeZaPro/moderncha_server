@@ -1,5 +1,5 @@
 const db = require("../models/db");
-// const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify");
+const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify");
 
 // ══════════════════════════════════════════════
 //  HELPER — ดึง device meta + line_user_id
@@ -99,17 +99,17 @@ exports.recordIncome = async (req, res) => {
     );
 
     // ── ส่ง LINE notify (non-blocking)
-    // if (line_user_id && mode !== "test") {
-    //   pushMessage(line_user_id, [
-    //     buildIncomeMessage({
-    //       deviceName: device_name,
-    //       method,
-    //       price,
-    //       branchId: branch_id,
-    //       createdAt: createdAt || null,
-    //     }),
-    //   ]);
-    // }
+    if (line_user_id && mode !== "test") {
+      pushMessage(line_user_id, [
+        buildIncomeMessage({
+          deviceName: device_name,
+          method,
+          price,
+          branchId: branch_id,
+          createdAt: createdAt || null,
+        }),
+      ]);
+    }
 
     res.json({
       ok: true,
@@ -598,15 +598,15 @@ exports.recordMachineIncome = async (req, res) => {
           ? "coin"
           : "cash";
 
-      // pushMessage(line_user_id, [
-      //   buildIncomeMessage({
-      //     deviceName: device_name,
-      //     method,
-      //     price: body.sumIncome ?? 0,
-      //     branchId: branch_id,
-      //     createdAt: dateTime,
-      //   }),
-      // ]);
+      pushMessage(line_user_id, [
+        buildIncomeMessage({
+          deviceName: device_name,
+          method,
+          price: body.sumIncome ?? 0,
+          branchId: branch_id,
+          createdAt: dateTime,
+        }),
+      ]);
     }
 
     res.json({
