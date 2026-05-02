@@ -20,17 +20,19 @@ function sendMQTTCmd(deviceId, payload) {
 }
 
 function parseDeviceId(orderId) {
+  // ORDER_esp32-1CDBD477FA84_1775302559336
   const parts = orderId.split("_");
   if (parts.length < 3) return null;
-  parts.shift();
-  parts.pop();
+  parts.shift(); // ตัด "ORDER"
+  parts.pop(); // ตัด timestamp
   return parts.join("_");
 }
 
 // ══════════════════════════════════════════════
 //  AUTO CANCEL — pending orders เกิน 2 นาที
+//  รันทุก 30 วินาที
 // ══════════════════════════════════════════════
-const PENDING_TIMEOUT_MS = 2 * 60 * 1000;
+const PENDING_TIMEOUT_MS = 2 * 60 * 1000; // 2 นาที
 
 setInterval(async () => {
   try {
@@ -39,11 +41,17 @@ setInterval(async () => {
       .slice(0, 19)
       .replace("T", " ");
 
+    // const [rows] = await db.query(
+    //   `SELECT order_id, device_id FROM orders
+    //    WHERE status = 'pending' AND created_at < ?`,
+    //   [cutoff]
+    // );
+    // ── AUTO CANCEL — เฉพาะ ESP32 orders (ORDER_esp32-...) ──
     const [rows] = await db.query(
       `SELECT order_id, device_id FROM orders
-       WHERE status = 'pending'
-       AND created_at < ?
-       AND order_id LIKE 'ORDER_%'`,
+   WHERE status = 'pending'
+   AND created_at < ?
+   AND order_id LIKE 'ORDER_%'`, // ← filter เฉพาะ ESP32 format
       [cutoff]
     );
 
@@ -55,6 +63,7 @@ setInterval(async () => {
       ]);
       console.log(`⏰ Auto-cancelled pending order: ${row.order_id}`);
 
+      // แจ้ง frontend
       if (io_ref) {
         io_ref.emit("order-cancelled", {
           orderId: row.order_id,
@@ -63,11 +72,13 @@ setInterval(async () => {
       }
     }
 
-    console.log(`🗑️ Cancelled ${rows.length} expired pending orders`);
+    if (rows.length > 0) {
+      console.log(`🗑️ Cancelled ${rows.length} expired pending orders`);
+    }
   } catch (err) {
     console.error("❌ Auto-cancel error:", err.message);
   }
-}, 30000);
+}, 30000); // check ทุก 30 วิ
 
 // ══════════════════════════════════════════════
 //  POST /api/merchant/create-qr
@@ -133,7 +144,6 @@ exports.createQR = async (req, res) => {
       amount,
       time: new Date().toISOString(),
     });
-
     res.json({ success: true, orderId, paymentCode, qr: imgdat || null });
   } catch (err) {
     console.error("❌ createQR:", err.message);
@@ -157,9 +167,7 @@ exports.checkOrder = async (req, res) => {
       data: { orderId },
       time: new Date(),
     });
-
     const response = await sdk.order_query({ mch_order_no: orderId });
-
     saveLog({
       action: "RESPONSE order_query",
       data: response,
@@ -175,6 +183,7 @@ exports.checkOrder = async (req, res) => {
 
 // ══════════════════════════════════════════════
 //  POST /notify — KSher webhook (no auth)
+//  ✅ ไม่ insert income ที่นี่ — ให้ ESP32 reportIncome() เป็นคนทำ
 // ══════════════════════════════════════════════
 exports.notify = async (req, res) => {
   try {
@@ -188,7 +197,6 @@ exports.notify = async (req, res) => {
       return res.send({ result: "FAIL" });
     }
 
-    // ✅ Log ข้อมูลดิบทันทีที่รับจาก KSher
     saveLog({ action: "NOTIFY RAW", data: json, time: new Date() });
 
     const orderId = json.data?.mch_order_no;
@@ -251,42 +259,14 @@ exports.notify = async (req, res) => {
 
     if (!sdk) {
       console.error("❌ Cannot find SDK — appId:", appId, "orderId:", orderId);
-      saveLog({
-        action: "NOTIFY SDK NOT FOUND",
-        orderId,
-        appId,
-        time: new Date(),
-      });
       return res.send({ result: "FAIL" });
     }
 
     // verify signature
     if (!sdk.verifySignature(json)) {
       console.log("❌ Invalid signature");
-      // ✅ Log กรณี signature ผิด
-      saveLog({
-        action: "NOTIFY SIGNATURE FAIL",
-        orderId,
-        appId,
-        merchantId,
-        data: json,
-        time: new Date(),
-      });
       return res.send({ result: "FAIL" });
     }
-
-    // ✅ Log หลัง verify ผ่าน พร้อมข้อมูลครบ
-    saveLog({
-      action: "NOTIFY VERIFIED",
-      orderId,
-      merchantId,
-      appId,
-      status,
-      amount: Number(json.data?.total_fee || 0) / 100, // satang → บาท
-      channel: json.data?.channel,
-      transactionId: json.data?.ksher_order_no,
-      time: new Date(),
-    });
 
     console.log(
       `✅ Signature verified | STATUS: ${status} | orderId: ${orderId}`
@@ -303,6 +283,7 @@ exports.notify = async (req, res) => {
 
       const deviceId = parseDeviceId(orderId);
 
+      // ดึง amount จาก orders
       const [amountRows] = await db.query(
         "SELECT amount, device_id FROM orders WHERE order_id = ?",
         [orderId]
@@ -314,17 +295,8 @@ exports.notify = async (req, res) => {
         `🚀 Payment SUCCESS — deviceId=${dbDeviceId} amount=${paidAmount} orderId=${orderId}`
       );
 
-      // ✅ Log เฉพาะกรณีจ่ายสำเร็จ
-      saveLog({
-        action: "NOTIFY PAYMENT SUCCESS",
-        orderId,
-        merchantId,
-        deviceId: dbDeviceId,
-        amount: paidAmount,
-        transactionId: json.data?.ksher_order_no,
-        channel: json.data?.channel,
-        time: new Date(),
-      });
+      // ✅ ไม่ insert income ที่นี่ — ESP32 จะ reportIncome() เอง
+      // income จะถูก insert ครั้งเดียวจาก POST /api/income/record
 
       if (io_ref) {
         io_ref.emit("payment-success", {
@@ -335,6 +307,7 @@ exports.notify = async (req, res) => {
       }
 
       if (dbDeviceId) {
+        // ส่ง amount ไปให้ ESP32 ด้วย เพื่อให้ reportIncome ได้ amount ถูกต้อง
         sendMQTTCmd(dbDeviceId, {
           cmd: "payment-success",
           orderId,
@@ -344,14 +317,7 @@ exports.notify = async (req, res) => {
       }
     }
 
-    // ✅ Log ปิด flow
-    saveLog({
-      action: "NOTIFY DONE",
-      status,
-      orderId,
-      merchantId,
-      time: new Date(),
-    });
+    saveLog({ action: "NOTIFY DONE", status, orderId, time: new Date() });
     res.send({ result: "SUCCESS" });
   } catch (err) {
     console.error("❌ /notify error:", err.message, err.stack);
@@ -362,6 +328,7 @@ exports.notify = async (req, res) => {
 
 // ══════════════════════════════════════════════
 //  POST /notify-success — manual trigger
+//  ✅ ไม่ insert income — ให้ ESP32 reportIncome() เอง
 // ══════════════════════════════════════════════
 exports.notifySuccess = async (req, res) => {
   try {
@@ -373,23 +340,19 @@ exports.notifySuccess = async (req, res) => {
     if (!deviceId)
       return res.status(400).json({ ok: false, msg: "invalid orderId" });
 
+    // ดึง amount จาก DB
     const [amountRows] = await db.query(
       "SELECT amount FROM orders WHERE order_id = ?",
       [orderId]
     );
     const paidAmount = Number(amountRows[0]?.amount || 0);
 
+    // update order status
     await db.query("UPDATE orders SET status = 'paid' WHERE order_id = ?", [
       orderId,
     ]);
 
-    saveLog({
-      action: "MANUAL NOTIFY SUCCESS",
-      orderId,
-      deviceId,
-      amount: paidAmount,
-      time: new Date(),
-    });
+    // ✅ ไม่ insert income — ESP32 จะ reportIncome() เอง
 
     console.log(`🚀 MANUAL SUCCESS → ${deviceId} amount=${paidAmount}`);
     sendMQTTCmd(deviceId, {
@@ -397,7 +360,6 @@ exports.notifySuccess = async (req, res) => {
       orderId,
       amount: paidAmount,
     });
-
     if (io_ref)
       io_ref.emit("payment-success", { deviceId, orderId, amount: paidAmount });
 
