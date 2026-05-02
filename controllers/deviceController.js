@@ -808,16 +808,100 @@ exports.sendConfigFromDB = async (req, res) => {
   }
 };
 
+// exports.sendConfigToGroup = async (req, res) => {
+//   try {
+//     const { branch_id, merchant_id } = req.body;
+//     const callerMerchantId = req.user.id;
+//     const callerRole = req.user.role;
+//     if (!branch_id && !merchant_id)
+//       return res
+//         .status(400)
+//         .json({ message: "branch_id or merchant_id required" });
+
+//     let sql = "SELECT * FROM device_configs WHERE 1=1";
+//     let params = [];
+//     if (branch_id) {
+//       sql += " AND branch_id = ?";
+//       params.push(branch_id);
+//     }
+//     if (merchant_id) {
+//       const target =
+//         callerRole === "admin" ? String(merchant_id) : String(callerMerchantId);
+//       sql += " AND merchant_id = ?";
+//       params.push(target);
+//     } else if (callerRole === "merchant") {
+//       sql += " AND merchant_id = ?";
+//       params.push(String(callerMerchantId));
+//     }
+
+//     const [rows] = await db.query(sql, params);
+//     if (!rows.length)
+//       return res.status(404).json({ message: "No devices found" });
+
+//     const results = [];
+//     for (const cfg of rows) {
+//       try {
+//         const payload = buildMqttPayload(cfg); // ✅ catpaw fields ถูกส่งอัตโนมัติ
+//         const topic = `${MQTT_PREFIX}/${cfg.device_id}/cmd`;
+//         client.publish(topic, JSON.stringify(payload));
+//         results.push({
+//           device_id: cfg.device_id,
+//           branch_id: cfg.branch_id,
+//           ok: true,
+//           topic,
+//         });
+//       } catch (err) {
+//         results.push({
+//           device_id: cfg.device_id,
+//           ok: false,
+//           error: err.message,
+//         });
+//       }
+//     }
+//     res.json({
+//       ok: true,
+//       total: results.length,
+//       success: results.filter((r) => r.ok).length,
+//       failed: results.filter((r) => !r.ok).length,
+//       results,
+//     });
+//   } catch (e) {
+//     console.error("❌ sendConfigToGroup:", e.message);
+//     res.status(500).json({ message: e.message });
+//   }
+// };
+
+// ══════════════════════════════════════════════
+//  syncConfigFromDevice — no auth
+//  ✅ เพิ่ม catpaw fields ใน UPDATE และ INSERT
+// ══════════════════════════════════════════════
+
 exports.sendConfigToGroup = async (req, res) => {
   try {
     const { branch_id, merchant_id } = req.body;
     const callerMerchantId = req.user.id;
     const callerRole = req.user.role;
+
     if (!branch_id && !merchant_id)
       return res
         .status(400)
         .json({ message: "branch_id or merchant_id required" });
 
+    // ── 1. ดึง source config (device ที่กำลัง edit อยู่)
+    const { sourceDeviceId } = req.body; // ✅ ต้องส่งมาจาก Vue ด้วย
+    if (!sourceDeviceId)
+      return res.status(400).json({ message: "sourceDeviceId required" });
+
+    const [srcRows] = await db.query(
+      "SELECT * FROM device_configs WHERE device_id = ?",
+      [sourceDeviceId]
+    );
+    if (!srcRows.length)
+      return res.status(404).json({ message: "Source device not found" });
+
+    const src = srcRows[0];
+
+    // ── 2. ดึงทุก device ใน group
     let sql = "SELECT * FROM device_configs WHERE 1=1";
     let params = [];
     if (branch_id) {
@@ -838,26 +922,61 @@ exports.sendConfigToGroup = async (req, res) => {
     if (!rows.length)
       return res.status(404).json({ message: "No devices found" });
 
+    // ── field ที่ไม่ copy (เฉพาะของแต่ละ device)
+    const SKIP_FIELDS = new Set([
+      "id",
+      "device_id",
+      "name",
+      "ssid",
+      "wfpwd",
+      "mac",
+      "lat",
+      "lon",
+      "created_at",
+      "lastedUpdate",
+    ]);
+
+    // ── 3. UPDATE + ส่ง MQTT ทุก device
     const results = [];
-    for (const cfg of rows) {
+    for (const target of rows) {
       try {
-        const payload = buildMqttPayload(cfg); // ✅ catpaw fields ถูกส่งอัตโนมัติ
-        const topic = `${MQTT_PREFIX}/${cfg.device_id}/cmd`;
+        // ── build update fields จาก src ยกเว้น SKIP_FIELDS
+        const fields = [];
+        const values = [];
+        for (const [key, val] of Object.entries(src)) {
+          if (SKIP_FIELDS.has(key)) continue;
+          fields.push(`\`${key}\` = ?`);
+          values.push(val);
+        }
+        fields.push("`lastedUpdate` = ?");
+        values.push(new Date().toISOString().slice(0, 19).replace("T", " "));
+        values.push(target.device_id);
+
+        // ── UPDATE DB
+        await db.query(
+          `UPDATE device_configs SET ${fields.join(", ")} WHERE device_id = ?`,
+          values
+        );
+
+        // ── ดึง config ที่ update แล้ว (เพื่อให้ได้ ssid/name ของ device นั้น)
+        const [updatedRows] = await db.query(
+          "SELECT * FROM device_configs WHERE device_id = ?",
+          [target.device_id]
+        );
+        const payload = buildMqttPayload(updatedRows[0]);
+        const topic = `${MQTT_PREFIX}/${target.device_id}/cmd`;
         client.publish(topic, JSON.stringify(payload));
-        results.push({
-          device_id: cfg.device_id,
-          branch_id: cfg.branch_id,
-          ok: true,
-          topic,
-        });
+
+        results.push({ device_id: target.device_id, ok: true, topic });
       } catch (err) {
         results.push({
-          device_id: cfg.device_id,
+          device_id: target.device_id,
           ok: false,
           error: err.message,
         });
       }
     }
+
     res.json({
       ok: true,
       total: results.length,
@@ -871,10 +990,6 @@ exports.sendConfigToGroup = async (req, res) => {
   }
 };
 
-// ══════════════════════════════════════════════
-//  syncConfigFromDevice — no auth
-//  ✅ เพิ่ม catpaw fields ใน UPDATE และ INSERT
-// ══════════════════════════════════════════════
 exports.syncConfigFromDevice = async (req, res) => {
   try {
     const body = req.body;
