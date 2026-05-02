@@ -339,6 +339,7 @@ exports.notify = async (req, res) => {
           cmd: "payment-success",
           orderId,
           amount: paidAmount,
+          ksher_order_no: json.data?.ksher_order_no, // ✅ เพิ่มตรงนี้
         });
         paymentCache.delete(dbDeviceId);
       }

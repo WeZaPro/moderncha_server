@@ -34,7 +34,15 @@ const parseDateTimeStr = (dateTime) => {
 // ══════════════════════════════════════════════
 exports.recordIncome = async (req, res) => {
   try {
-    const { device_id, price, method, datetime, mode } = req.body;
+    const {
+      device_id,
+      price,
+      method,
+      datetime,
+      mode,
+      order_id,
+      ksher_order_no,
+    } = req.body;
 
     console.log("req.body ", req.body);
 
@@ -65,37 +73,54 @@ exports.recordIncome = async (req, res) => {
       if (!isNaN(d)) createdAt = d.toISOString().slice(0, 19).replace("T", " ");
     }
 
-    const values = createdAt
-      ? [
-          device_id,
-          device_name,
-          merchant_id,
-          branch_id,
-          method,
-          Number(price),
-          mode || "prod",
-          createdAt,
-        ]
-      : [
-          device_id,
-          device_name,
-          merchant_id,
-          branch_id,
-          method,
-          Number(price),
-          mode || "prod",
-        ];
+    // ── build columns / values แบบ dynamic
+    const columns = [
+      "device_id",
+      "device_name",
+      "merchant_id",
+      "branch_id",
+      "method",
+      "price",
+      "mode",
+    ];
+    const values = [
+      device_id,
+      device_name,
+      merchant_id,
+      branch_id,
+      method,
+      Number(price),
+      mode || "prod",
+    ];
 
-    const [result] = await db.query(
-      `INSERT INTO income (device_id, device_name, merchant_id, branch_id, method, price, mode${
-        createdAt ? ", created_at" : ""
-      })
-       VALUES (?, ?, ?, ?, ?, ?, ?${createdAt ? ", ?" : ""})`,
-      values
-    );
+    if (order_id) {
+      columns.push("order_id");
+      values.push(order_id);
+    }
+
+    if (ksher_order_no) {
+      columns.push("ksher_order_no");
+      values.push(ksher_order_no);
+    }
+
+    if (createdAt) {
+      columns.push("created_at");
+      values.push(createdAt);
+    }
+
+    const placeholders = columns.map(() => "?").join(", ");
+    const sql = `INSERT INTO income (${columns.join(
+      ", "
+    )}) VALUES (${placeholders})`;
+
+    const [result] = await db.query(sql, values);
 
     console.log(
-      `✅ Income recorded: id=${result.insertId}  merchant_id=${merchant_id} device=${device_id} method=${method} price=${price}`
+      `✅ Income recorded: id=${
+        result.insertId
+      } merchant_id=${merchant_id} device=${device_id} method=${method} price=${price} order_id=${
+        order_id || "-"
+      } ksher_order_no=${ksher_order_no || "-"}`
     );
 
     // ── ส่ง LINE notify (non-blocking)
@@ -121,6 +146,8 @@ exports.recordIncome = async (req, res) => {
       method,
       price: Number(price),
       mode: mode || "prod",
+      order_id: order_id || null,
+      ksher_order_no: ksher_order_no || null,
     });
   } catch (e) {
     console.error("❌ recordIncome:", e.message);
