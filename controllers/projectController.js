@@ -104,24 +104,6 @@ exports.getProjectById = async (req, res) => {
 //  GET /api/merchant/project
 //  ดู project ของ merchant ตัวเอง
 // ══════════════════════════════════════════════
-exports.getMyProjects = async (req, res) => {
-  try {
-    const merchantId = req.user.id;
-
-    const [rows] = await db.query(
-      `SELECT id, branch_id, project_name, image_logo, address, contact, created_at
-       FROM projects
-       WHERE merchant_id = ?
-       ORDER BY created_at DESC`,
-      [merchantId]
-    );
-
-    res.json(rows);
-  } catch (e) {
-    console.error("❌ getMyProjects:", e.message);
-    res.status(500).json({ message: e.message });
-  }
-};
 
 // ══════════════════════════════════════════════
 //  PUT /api/merchant/project/:id

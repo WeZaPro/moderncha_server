@@ -4,7 +4,6 @@ const { getSdkByMerchantId } = require("../utils/ksherSdkCache");
 const { saveLog } = require("../utils/logger");
 const { client, MQTT_PREFIX } = require("../config/mqtt");
 const { paymentCache } = require("../config/mqttHandler");
-const { pushMessage, buildIncomeMessage } = require("../utils/lineNotify"); // ✅ LINE OA
 
 // ══════════════════════════════════════════════
 //  ป้องกัน webhook ยิงซ้ำ — ใช้ Map + TTL แทน Set
@@ -53,94 +52,6 @@ function parseDeviceId(orderId) {
   parts.shift(); // ตัด "ORDER"
   parts.pop(); // ตัด timestamp
   return parts.join("_");
-}
-
-// ══════════════════════════════════════════════
-//  Helper: Save income + LINE notify
-//  เรียกจาก notify() และ notifySuccess()
-// ══════════════════════════════════════════════
-async function saveIncomeAndNotify({
-  dbDeviceId,
-  merchantId,
-  orderId,
-  paidAmount,
-  ksherOrderNo = null,
-  method = "qr",
-  mode = "prod",
-}) {
-  try {
-    // ── ดึง device_name, branch_id, line_user_id ──
-    const [dcRows] = await db.query(
-      `SELECT dc.name AS device_name, dc.branch_id, u.line_user_id
-       FROM device_configs dc
-       LEFT JOIN users u ON u.id = dc.merchant_id
-       WHERE dc.device_id = ?`,
-      [dbDeviceId]
-    );
-
-    const deviceName = dcRows[0]?.device_name || dbDeviceId;
-    const branchId = dcRows[0]?.branch_id || null;
-    const lineUserId = dcRows[0]?.line_user_id || null;
-
-    // ── INSERT income ──
-    await db.query(
-      `INSERT INTO income
-        (device_id, device_name, merchant_id, branch_id,
-         method, ksher_order_no, order_id, price, mode)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        dbDeviceId,
-        deviceName,
-        merchantId,
-        branchId,
-        method,
-        ksherOrderNo || null,
-        orderId,
-        paidAmount,
-        mode,
-      ]
-    );
-
-    console.log(
-      `✅ Income saved — device=${dbDeviceId} amount=${paidAmount} ksher=${ksherOrderNo} method=${method}`
-    );
-
-    saveLog({
-      action: "INCOME SAVED",
-      orderId,
-      merchantId,
-      deviceId: dbDeviceId,
-      ksher_order_no: ksherOrderNo,
-      amount: paidAmount,
-      method,
-      time: new Date(),
-    });
-
-    // ── LINE OA notify (non-blocking, เฉพาะ prod) ──
-    if (lineUserId && mode !== "test") {
-      pushMessage(lineUserId, [
-        buildIncomeMessage({
-          deviceName,
-          method,
-          price: paidAmount,
-          branchId,
-          createdAt: null, // ใช้ NOW()
-        }),
-      ]);
-      console.log(
-        `📲 LINE notify sent → merchant=${merchantId} device=${dbDeviceId}`
-      );
-    }
-  } catch (incomeErr) {
-    // ไม่ throw — payment สำเร็จแล้ว แค่ log
-    console.error("❌ saveIncomeAndNotify error:", incomeErr.message);
-    saveLog({
-      action: "INCOME SAVE ERROR",
-      orderId,
-      error: incomeErr.message,
-      time: new Date(),
-    });
-  }
 }
 
 // ══════════════════════════════════════════════
@@ -274,7 +185,9 @@ exports.checkOrder = async (req, res) => {
       data: { orderId },
       time: new Date(),
     });
+
     const response = await sdk.order_query({ mch_order_no: orderId });
+
     saveLog({
       action: "RESPONSE order_query",
       data: response,
@@ -406,9 +319,9 @@ exports.notify = async (req, res) => {
       `✅ Signature verified | STATUS: ${status} | orderId: ${orderId}`
     );
 
-    // ── อัปเดต DB เฉพาะกรณี SUCCESS ──
+    // ── FIX: อัปเดต DB เฉพาะกรณี SUCCESS เท่านั้น ──
     if (status === "SUCCESS") {
-      // ป้องกัน race condition
+      // ป้องกัน race condition — ตรวจสอบก่อน update
       const [currentRows] = await db.query(
         "SELECT status FROM orders WHERE order_id = ?",
         [orderId]
@@ -462,7 +375,6 @@ exports.notify = async (req, res) => {
         time: new Date(),
       });
 
-      // ── Socket.IO ──
       if (io_ref) {
         io_ref.emit("payment-success", {
           deviceId: dbDeviceId,
@@ -471,7 +383,6 @@ exports.notify = async (req, res) => {
         });
       }
 
-      // ── MQTT → ESP32 ──
       if (dbDeviceId) {
         sendMQTTCmd(dbDeviceId, {
           cmd: "payment-success",
@@ -482,18 +393,62 @@ exports.notify = async (req, res) => {
         paymentCache.delete(dbDeviceId);
       }
 
-      // ── ✅ Save income + LINE OA notify ──
-      await saveIncomeAndNotify({
-        dbDeviceId,
-        merchantId,
-        orderId,
-        paidAmount,
-        ksherOrderNo: json.data?.ksher_order_no || null,
-        method: "qr",
-        mode: "prod",
-      });
+      // ══════════════════════════════════════════
+      //  ✅ Save income — ข้อมูลครบจาก webhook
+      //  ใช้ device_configs join เพื่อได้ branch_id
+      // ══════════════════════════════════════════
+      try {
+        const [dcRows] = await db.query(
+          `SELECT dc.name AS device_name, dc.branch_id
+           FROM device_configs dc
+           WHERE dc.device_id = ?`,
+          [dbDeviceId]
+        );
+
+        const deviceName = dcRows[0]?.device_name || dbDeviceId;
+        const branchId = dcRows[0]?.branch_id || null;
+
+        await db.query(
+          `INSERT INTO income
+            (device_id, device_name, merchant_id, branch_id,
+             method, ksher_order_no, order_id, price, mode)
+           VALUES (?, ?, ?, ?, 'qr', ?, ?, ?, 'prod')`,
+          [
+            dbDeviceId,
+            deviceName,
+            merchantId,
+            branchId,
+            json.data?.ksher_order_no || null, // ✅ ได้จาก webhook โดยตรง
+            orderId,
+            paidAmount,
+          ]
+        );
+
+        console.log(
+          `✅ Income saved — device=${dbDeviceId} amount=${paidAmount} ksher=${json.data?.ksher_order_no}`
+        );
+
+        saveLog({
+          action: "INCOME SAVED",
+          orderId,
+          merchantId,
+          deviceId: dbDeviceId,
+          ksher_order_no: json.data?.ksher_order_no,
+          amount: paidAmount,
+          time: new Date(),
+        });
+      } catch (incomeErr) {
+        // ไม่ return FAIL — payment สำเร็จแล้ว แค่ log error
+        console.error("❌ Save income error:", incomeErr.message);
+        saveLog({
+          action: "INCOME SAVE ERROR",
+          orderId,
+          error: incomeErr.message,
+          time: new Date(),
+        });
+      }
     } else {
-      // Non-SUCCESS: log เฉยๆ ไม่แตะ DB
+      // Non-SUCCESS: log เฉยๆ ไม่แตะ DB (user อาจจ่ายใหม่ได้)
       console.log(`ℹ️ Non-success notify: status=${status} orderId=${orderId}`);
       saveLog({
         action: "NOTIFY NON-SUCCESS",
@@ -533,19 +488,19 @@ exports.notifySuccess = async (req, res) => {
       return res.status(400).json({ ok: false, msg: "invalid orderId format" });
 
     const [orderRows] = await db.query(
-      "SELECT amount, status, merchant_id FROM orders WHERE order_id = ?",
+      "SELECT amount, status FROM orders WHERE order_id = ?",
       [orderId]
     );
 
     if (!orderRows.length) {
       return res.status(404).json({ ok: false, msg: "order not found" });
     }
+
     if (orderRows[0].status === "paid") {
       return res.status(409).json({ ok: false, msg: "order already paid" });
     }
 
     const paidAmount = Number(orderRows[0].amount || 0);
-    const merchantId = orderRows[0].merchant_id;
 
     await db.query(
       "UPDATE orders SET status = 'paid' WHERE order_id = ? AND status = 'pending'",
@@ -564,7 +519,6 @@ exports.notifySuccess = async (req, res) => {
     });
 
     console.log(`🚀 MANUAL SUCCESS → ${deviceId} amount=${paidAmount}`);
-
     sendMQTTCmd(deviceId, {
       cmd: "payment-success",
       orderId,
@@ -574,17 +528,6 @@ exports.notifySuccess = async (req, res) => {
     if (io_ref) {
       io_ref.emit("payment-success", { deviceId, orderId, amount: paidAmount });
     }
-
-    // ── ✅ Save income + LINE OA notify ──
-    await saveIncomeAndNotify({
-      dbDeviceId: deviceId,
-      merchantId,
-      orderId,
-      paidAmount,
-      ksherOrderNo: null, // manual trigger ไม่มี ksher_order_no
-      method: "qr",
-      mode: "prod",
-    });
 
     res.json({ ok: true, deviceId, orderId, amount: paidAmount });
   } catch (err) {
