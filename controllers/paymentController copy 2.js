@@ -392,61 +392,6 @@ exports.notify = async (req, res) => {
         });
         paymentCache.delete(dbDeviceId);
       }
-
-      // ══════════════════════════════════════════
-      //  ✅ Save income — ข้อมูลครบจาก webhook
-      //  ใช้ device_configs join เพื่อได้ branch_id
-      // ══════════════════════════════════════════
-      try {
-        const [dcRows] = await db.query(
-          `SELECT dc.name AS device_name, dc.branch_id
-           FROM device_configs dc
-           WHERE dc.device_id = ?`,
-          [dbDeviceId]
-        );
-
-        const deviceName = dcRows[0]?.device_name || dbDeviceId;
-        const branchId = dcRows[0]?.branch_id || null;
-
-        await db.query(
-          `INSERT INTO income
-            (device_id, device_name, merchant_id, branch_id,
-             method, ksher_order_no, order_id, price, mode)
-           VALUES (?, ?, ?, ?, 'qr', ?, ?, ?, 'prod')`,
-          [
-            dbDeviceId,
-            deviceName,
-            merchantId,
-            branchId,
-            json.data?.ksher_order_no || null, // ✅ ได้จาก webhook โดยตรง
-            orderId,
-            paidAmount,
-          ]
-        );
-
-        console.log(
-          `✅ Income saved — device=${dbDeviceId} amount=${paidAmount} ksher=${json.data?.ksher_order_no}`
-        );
-
-        saveLog({
-          action: "INCOME SAVED",
-          orderId,
-          merchantId,
-          deviceId: dbDeviceId,
-          ksher_order_no: json.data?.ksher_order_no,
-          amount: paidAmount,
-          time: new Date(),
-        });
-      } catch (incomeErr) {
-        // ไม่ return FAIL — payment สำเร็จแล้ว แค่ log error
-        console.error("❌ Save income error:", incomeErr.message);
-        saveLog({
-          action: "INCOME SAVE ERROR",
-          orderId,
-          error: incomeErr.message,
-          time: new Date(),
-        });
-      }
     } else {
       // Non-SUCCESS: log เฉยๆ ไม่แตะ DB (user อาจจ่ายใหม่ได้)
       console.log(`ℹ️ Non-success notify: status=${status} orderId=${orderId}`);
