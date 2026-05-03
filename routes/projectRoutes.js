@@ -55,6 +55,13 @@ router.delete(
   role("admin"),
   projectController.deleteProject
 );
+
+router.get(
+  "/default-config",
+  auth,
+  role("admin", "merchant", "service"),
+  projectController.getDefaultConfig
+);
 //==========================================
 
 module.exports = router;

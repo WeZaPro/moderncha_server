@@ -328,3 +328,42 @@ exports.updateDeviceConfig = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
+
+// ══════════════════════════════════════════════
+//  GET /api/project/default-config
+//  ดึง config ล่าสุดของ merchant เป็น template
+// ══════════════════════════════════════════════
+exports.getDefaultConfig = async (req, res) => {
+  try {
+    const { merchant_id, machine_system } = req.query;
+
+    let sql = `
+      SELECT * FROM device_configs
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (merchant_id) {
+      sql += " AND merchant_id = ?";
+      params.push(merchant_id);
+    }
+
+    if (machine_system) {
+      sql += " AND machine_system = ?";
+      params.push(machine_system);
+    }
+
+    sql += " ORDER BY updated_at DESC LIMIT 1";
+
+    const [rows] = await db.query(sql, params);
+
+    if (!rows.length) {
+      return res.status(404).json({ message: "No template config found" });
+    }
+
+    res.json(rows[0]);
+  } catch (e) {
+    console.error("❌ getDefaultConfig:", e.message);
+    res.status(500).json({ message: e.message });
+  }
+};
