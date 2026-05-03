@@ -18,30 +18,38 @@ const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
 
-// ✅ โหลด config ก่อนทุกอย่าง
+// ✅ โหลด config ก่อนทุกอย่าง (จะ print mode ออกมา)
 require("./config/appConfig");
 
 const initSocket = require("./config/socket");
 const { client, MQTT_PREFIX } = require("./config/mqtt");
 const initMQTT = require("./config/mqttHandler");
 const { loadDeviceFile, loadGroup } = require("./utils/helper");
-const authMiddleware = require("./middleware/authMiddleware"); // ✅ ใช้ของจริง
 
-/* ═══ Routes ═══════════════════════════════════ */
+/* ═══ Routes เดิม ═══════════════════════════ */
 const timerRoutes = require("./routes/timerRoutes");
+// const firmwareRoutes = require("./routes/firmwareRoutes");
 const deviceRoutes = require("./routes/deviceRoutes");
+// const otaRoutes = require("./routes/otaRoutes-");
 const systemRoutes = require("./routes/systemRoutes");
+
+/* ═══ Routes ใหม่ ════════════════════════════ */
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const merchantRoutes = require("./routes/merchantRoutes");
 const sharedRoutes = require("./routes/sharedRoutes");
-const projectRoutes = require("./routes/projectRoutes");
-const incomeRoutes = require("./routes/incomeRoutes");
+const paymentRoutes = require("./routes/paymentRoutes"); // ✅ เพิ่ม
 
-/* ═══ Payment controller (webhook + test) ════════ */
+/* ═══ Project ════ */
+const projectRoutes = require("./routes/projectRoutes");
+/* ═══ Payment controller (webhook + test) ════ */
 const paymentController = require("./controllers/paymentController");
 
-/* ═══ App Setup ══════════════════════════════════ */
+// income
+
+const incomeRoutes = require("./routes/incomeRoutes");
+
+/* ═══ App Setup ══════════════════════════════ */
 const app = express();
 const server = http.createServer(app);
 const io = initSocket(server);
@@ -51,28 +59,40 @@ paymentController.setIO(io);
 
 app.use(
   cors({
-    origin: "*",
+    origin: "*", // หรือใส่ domain จริงก็ได้
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    //allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// 🔥 สำคัญมาก
+// app.options("*", cors());
+
+// app.use((req,res,next)=>{
+//   if (req.method==="OPTIONS"){
+//     return res.sendStatus(200);
+//   }
+//   next();
+// })
+
 app.use(express.json());
 app.use(express.static("public"));
+
 app.use("/uploads", cors(), express.static(path.join(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 9369;
 
-/* ═══ Load data ══════════════════════════════════ */
+/* ═══ Load data ══════════════════════════════ */
 let deviceStore = loadDeviceFile();
 let groups = loadGroup();
 
-/* ═══ Maps ═══════════════════════════════════════ */
+/* ═══ Maps ═══════════════════════════════════ */
 const clients = new Map();
 const webClients = new Map();
 const espClients = new Map();
 const deviceRuntime = new Map();
 
-/* ═══ Helper ══════════════════════════════════════ */
+/* ═══ Helper ═════════════════════════════════ */
 function saveDevice(deviceId) {
   if (!deviceId) return false;
   if (deviceStore[deviceId]) return false;
@@ -88,41 +108,36 @@ function saveDevice(deviceId) {
   }
 }
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    ROUTES
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 
 /* ── PUBLIC (ไม่ต้อง token) ── */
 app.use("/api/auth", authRoutes);
 
-/* ── KSher Webhook — raw text, ไม่มี auth, mount ครั้งเดียว ── */
+/* ── KSher webhook — raw text, ไม่มี auth ── */
 app.post("/notify", bodyParser.text({ type: "*/*" }), paymentController.notify);
 
-/* ── Manual trigger / test — ต้อง login ── */
-app.post(
-  "/notify-success",
-  express.json(),
-  authMiddleware, // ✅ ป้องกันคนภายนอก
-  paymentController.notifySuccess
-);
-app.get(
-  "/test-payment/:deviceId",
-  authMiddleware, // ✅ ป้องกันคนภายนอก
-  paymentController.testPayment
-);
-
-/* ── Health check ── */
-app.get("/runksher", (req, res) => res.send("KSher PromptPay API Running"));
-app.get("/payment_ksher", (req, res) => res.send("START PAYMENT"));
-
 /* ── Project ── */
-app.use("/api/project", projectRoutes);
+app.use("/api/project", projectRoutes); // ✅
+
+/* ── Manual trigger / test payment ── */
+app.post("/notify-success", express.json(), paymentController.notifySuccess);
+app.get("/test-payment/:deviceId", paymentController.testPayment);
+
+/* ── Legacy health check ── */
+app.get("/payment_ksher", (req, res) => res.send("START PAYMENT"));
+app.get("/runksher", (req, res) => res.send("KSher PromptPay API Running"));
 
 /* ── ADMIN เท่านั้น 🔒 ── */
 app.use("/api/admin", adminRoutes);
 
 /* ── MERCHANT + ADMIN 🔑 ── */
 app.use("/api/merchant", merchantRoutes);
+// app.use("/api/merchant", (req, res, next) => {
+//   console.log("🛣️ merchantRoutes hit:", req.method, req.path);
+//   next();
+// });
 
 /* ── INCOME 🔑 ── */
 app.use("/api/income", incomeRoutes);
@@ -132,33 +147,40 @@ app.use("/api", require("./routes/devicePublicRoutes"));
 /* ── SHARED (token ทุก role) ── */
 app.use("/api", sharedRoutes);
 
-/* ── SYSTEM / DEVICE / TIMER (เดิม) ── */
+/* ── Payment routes (สำหรับ direct access) ── */
+app.use("/", paymentRoutes);
+
+/* ── SYSTEM / DEVICE / OTA / TIMER (เดิม) ── */
 app.use(deviceRoutes(io));
 app.use(timerRoutes);
+// app.use(firmwareRoutes);
+// app.use(otaRoutes(io, espClients, deviceRuntime, groups));
 app.use(
   systemRoutes(io, espClients, deviceRuntime, deviceStore, clients, groups)
 );
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    MQTT
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 initMQTT(client, io, deviceRuntime, saveDevice, MQTT_PREFIX);
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    START SERVER
-══════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 server.listen(PORT, "0.0.0.0", () => {
   console.log("🚀 Server running on port", PORT);
 });
 
-/* ══════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    TIMEOUT WATCHDOG — ตรวจ device offline
-══════════════════════════════════════════════════ */
-const TIMEOUT = 60_000; // 60 วินาที
-const { updateDeviceStatus } = require("./utils/deviceStatus");
+══════════════════════════════════════════════ */
+const TIMEOUT = 60000; // 60 วินาที
+const { updateDeviceStatus } = require("./utils/deviceStatus"); // ← เพิ่ม import
 
 setInterval(async () => {
   const now = Date.now();
+
+  // ✅ debug — ดูว่า watchdog ทำงานไหมและมี device ไหม
   console.log(`🔍 Watchdog: ${deviceRuntime.size} devices in runtime`);
 
   for (const [id, rt] of deviceRuntime.entries()) {
@@ -169,7 +191,6 @@ setInterval(async () => {
     );
 
     if (!rt.lastSeen) continue;
-
     if (now - rt.lastSeen > TIMEOUT && rt.online) {
       rt.online = false;
       deviceRuntime.set(id, rt);
@@ -178,4 +199,4 @@ setInterval(async () => {
       console.log("⛔ Timeout offline:", id, `| diff: ${now - rt.lastSeen}ms`);
     }
   }
-}, 10_000);
+}, 10000);
